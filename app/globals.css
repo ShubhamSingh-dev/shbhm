@@ -5,6 +5,15 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "Bord";
+  src: url("../style/font/Bord.ttf") format("truetype");
+}
+
+.font-bord {
+  font-family: "Bord", sans-serif;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
