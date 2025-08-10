@@ -16,3 +16,11 @@ export const socials = [
     href: "https://dev.to/shubhamsingh",
   },
 ];
+
+export const navigationItems = [
+  { name: "HOME", id: "hero" },
+  { name: "ABOUT", id: "about" },
+  { name: "SERVICES", id: "services" },
+  { name: "WORK", id: "work" },
+  { name: "CONTACT", id: "contact" },
+];
