@@ -1,221 +1,204 @@
-import { useEffect, useRef, useState } from "react";
-import { socials } from "@/constants/socials";
+"use client";
+
+import { useRef, useState, useEffect } from "react";
+import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import Lenis from "@studio-freight/lenis";
+import { socials } from "@/constants/socials";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+
+const navigationItems = [
+  { name: "HOME", id: "hero" },
+  { name: "ABOUT", id: "about" },
+  { name: "SERVICES", id: "services" },
+  { name: "WORK", id: "work" },
+  { name: "CONTACT", id: "contact" },
+];
 
 const BurgerNavbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Refs
   const navRef = useRef<HTMLDivElement>(null);
-  const linkRef = useRef<(HTMLDivElement | null)[]>([]);
-  const contactRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
   const topLineRef = useRef<HTMLSpanElement>(null);
   const bottomLineRef = useRef<HTMLSpanElement>(null);
-
-  const tl = useRef<gsap.core.Timeline | null>(null);
-  const iconTl = useRef<gsap.core.Timeline | null>(null);
-  const lenis = useRef<Lenis | null>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [showBurger, setShowBurger] = useState(true); // Show burger by default
-
-  // Register plugins once
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
+  const linkRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const contactRef = useRef<HTMLDivElement>(null);
+  
+  // Timelines
+  const menuTl = useRef<gsap.core.Timeline | null>(null);
+  const burgerTl = useRef<gsap.core.Timeline | null>(null);
+  
+  const { scrollTo } = useSmoothScroll();
 
   useGSAP(() => {
-    // Initialize Lenis
-    lenis.current = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
+    // Initialize arrays
+    linkRefs.current = new Array(navigationItems.length).fill(null);
 
-    const raf = (time: number) => {
-      lenis.current?.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
+    // Wait for next tick to ensure refs are set
+    const initAnimation = () => {
+      // Check if all required refs exist
+      if (!navRef.current || !overlayRef.current || !contactRef.current) {
+        return;
+      }
 
-    // Initialize refs array with correct length
-    linkRef.current = new Array(5).fill(null);
-
-    // Set initial states with better positioning
-    if (navRef.current) {
+      // Filter out null refs for links
+      const validLinkRefs = linkRefs.current.filter(Boolean);
+      
+      // Set initial states only for existing elements
       gsap.set(navRef.current, { xPercent: 100 });
-    }
+      gsap.set(overlayRef.current, { opacity: 0 });
+      
+      if (validLinkRefs.length > 0) {
+        gsap.set(validLinkRefs, { opacity: 0, y: 30 });
+      }
+      
+      gsap.set(contactRef.current, { opacity: 0, y: 20 });
 
-    // Only animate elements that exist
-    const existingLinks = linkRef.current.filter(Boolean);
-    if (existingLinks.length > 0) {
-      gsap.set(existingLinks, {
-        autoAlpha: 0,
-        y: 30, // Use y instead of x for better effect
-      });
-    }
-
-    if (contactRef.current) {
-      gsap.set(contactRef.current, {
-        autoAlpha: 0,
-        y: 20, // Use y instead of x for better effect
-      });
-    }
-
-    // Create main animation timeline with slower, more elegant timing
-    tl.current = gsap.timeline({ paused: true });
-
-    if (navRef.current) {
-      tl.current.to(navRef.current, {
-        xPercent: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }
-
-    if (existingLinks.length > 0) {
-      tl.current.to(
-        existingLinks,
-        {
-          autoAlpha: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.5,
+      // Menu animation timeline
+      menuTl.current = gsap.timeline({ paused: true })
+        .to(overlayRef.current, {
+          opacity: 1,
+          duration: 0.3,
           ease: "power2.out",
-        },
-        "<"
-      );
-    }
-
-    if (contactRef.current) {
-      tl.current.to(
-        contactRef.current,
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        "<+0.2"
-      );
-    }
-
-    // Burger icon animation - slower and smoother
-    if (topLineRef.current && bottomLineRef.current) {
-      iconTl.current = gsap
-        .timeline({ paused: true })
-        .to(topLineRef.current, {
-          rotation: 45,
-          y: 3.3,
-          duration: 0.4,
-          ease: "power2.inOut",
         })
-        .to(
-          bottomLineRef.current,
-          {
-            rotation: -45,
-            y: -3.3,
-            duration: 0.4,
+        .to(navRef.current, {
+          xPercent: 0,
+          duration: 0.7,
+          ease: "power3.out",
+        }, "-=0.1");
+
+      // Only animate links if they exist
+      if (validLinkRefs.length > 0) {
+        menuTl.current.to(validLinkRefs, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.5,
+          ease: "power2.out",
+        }, "-=0.3");
+      }
+
+      menuTl.current.to(contactRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      }, "-=0.2");
+
+      // Burger icon animation
+      if (topLineRef.current && bottomLineRef.current) {
+        burgerTl.current = gsap.timeline({ paused: true })
+          .to(topLineRef.current, {
+            rotation: 45,
+            y: 3.5,
+            duration: 0.3,
             ease: "power2.inOut",
-          },
-          "<0.05"
-        );
-    }
+          })
+          .to(bottomLineRef.current, {
+            rotation: -45,
+            y: -3.5,
+            duration: 0.3,
+            ease: "power2.inOut",
+          }, "<");
+      }
+    };
 
-    // ScrollTrigger for burger visibility - using a more stable approach
-    let scrollTrigger: ScrollTrigger | null = null;
-
-    // Add a small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      scrollTrigger = ScrollTrigger.create({
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: function (self) {
-          // Use function declaration instead of arrow function to avoid context issues
-          const isVisible = self.direction === -1 || self.scroll() < 100;
-          setShowBurger(isVisible);
-        },
-        onRefresh: function () {
-          // Handle refresh events
-          setShowBurger(true);
-        },
-      });
-    }, 100);
+    // Use setTimeout to ensure refs are set after render
+    const timeoutId = setTimeout(initAnimation, 0);
 
     return () => {
-      clearTimeout(timer);
-      lenis.current?.destroy();
-      if (scrollTrigger) {
-        scrollTrigger.kill();
-      }
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      clearTimeout(timeoutId);
     };
   }, []);
 
   const toggleMenu = () => {
     if (isOpen) {
-      tl.current?.reverse();
-      iconTl.current?.reverse();
+      menuTl.current?.reverse();
+      burgerTl.current?.reverse();
     } else {
-      tl.current?.play();
-      iconTl.current?.play();
+      menuTl.current?.play();
+      burgerTl.current?.play();
     }
     setIsOpen(!isOpen);
   };
 
-  const handleNavClick = (section: string) => {
-    // Add smooth scroll to section logic here
-    const element = document.getElementById(section.toLowerCase());
-    if (element && lenis.current) {
-      lenis.current.scrollTo(element);
-    }
-
+  const handleNavClick = (id: string) => {
+    scrollTo(id);
     if (isOpen) {
       toggleMenu();
     }
   };
 
+  // Handle escape key and body scroll
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        toggleMenu();
+      }
+    };
+
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", handleEscape);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   return (
     <>
+      {/* Backdrop Overlay */}
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm pointer-events-none"
+        style={{ display: isOpen ? 'block' : 'none' }}
+      />
+
+      {/* Navigation Menu - Restored your original style */}
       <nav
         ref={navRef}
-        className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2" // style={{ transform: "translateX(100%)" }}
+        className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2"
       >
         <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-[4.8rem] items-center mt-25">
-          {["MAIN HOME", "ABOUT", "SERVICES", "WORK", "CONTACT"].map(
-            (section, index) => (
-              <div
-                className="border border-white/10 w-full text-center"
-                key={section}
-                ref={(el) => {
-                  if (linkRef.current) {
-                    linkRef.current[index] = el;
-                  }
-                }}
+          {navigationItems.map((item, index) => (
+            <div
+              className="border border-white/10 w-full text-center"
+              key={item.name}
+              ref={(el) => {
+                if (linkRefs.current) {
+                  linkRefs.current[index] = el;
+                }
+              }}
+            >
+              <button
+                onClick={() => handleNavClick(item.id)}
+                className="transition-all duration-300 cursor-pointer hover:text-white w-full font-bold tracking-tighter font-spacegrotesk"
               >
-                <button
-                  type="button"
-                  className="transition-all duration-300 cursor-pointer hover:text-white w-full font-bold tracking-tighter font-spacegrotesk"
-                  onClick={() => handleNavClick(section)}
-                >
-                  {section}
-                </button>
-              </div>
-            )
-          )}
+                {item.name}
+              </button>
+            </div>
+          ))}
         </div>
+
         <div
           ref={contactRef}
           className="flex flex-col flex-wrap justify-between gap-8 md:flex-row mt-15"
         >
           <div className="font-light">
-            <p className="tracking-wider text-white/50 ">E-mail</p>
+            <p className="tracking-wider text-white/50">E-mail</p>
             <p className="text-lg tracking-widest lowercase text-pretty">
               mine.shubhamsingh@gmail.com
             </p>
           </div>
           <div className="font-light">
-            <p className="tracking-wider text-white/50 ">Social media</p>
+            <p className="tracking-wider text-white/50">Social media</p>
             <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
               {socials.map((social) => (
                 <a
@@ -235,12 +218,11 @@ const BurgerNavbar = () => {
         </div>
       </nav>
 
+      {/* Burger Button with higher z-index */}
       <button
-        type="button"
-        className={`fixed z-50 flex flex-col justify-center items-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-8 h-8 md:w-14 md:h-14 right-6  ${
-          showBurger ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        ref={burgerRef}
         onClick={toggleMenu}
+        className="fixed z-[60] flex flex-col justify-center items-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-8 h-8 md:w-14 md:h-14 right-6 top-4"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <span
