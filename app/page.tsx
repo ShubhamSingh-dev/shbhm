@@ -1,11 +1,9 @@
-"use client";
 
 import Hero from "@/sections/Hero/Hero";
+import React from "react";
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-    </>
-  );
-}
+const App = () => {
+  return <Hero />;
+};
+
+export default App;

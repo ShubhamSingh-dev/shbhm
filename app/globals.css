@@ -1,10 +1,33 @@
 @import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://db.onlinewebfonts.com/c/0a3ba5727ba8b16112021456bd4c9258?family=Media+Sans+SemiCondensed");
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  
+  --font-family-mediasans: "Media Sans SemiCondensed", sans-serif;
+  --font-family-bord: "Bord", sans-serif;
+  --font-family-manrope: "Manrope", sans-serif;
+  --font-family-spacegrotesk: "Space Grotesk", sans-serif;
+}
+
+/* Font utilities */
+@utility font-mediasans {
+  font-family: theme(--font-family-mediasans);
+}
+
+@utility font-bord {
+  font-family: theme(--font-family-bord);
+}
+
+@utility font-manrope {
+  font-family: theme(--font-family-manrope);
+}
+
+@utility font-spacegrotesk {
+  font-family: theme(--font-family-spacegrotesk);
 }
 
 @font-face {
@@ -12,24 +35,22 @@
   src: url("../style/font/Bord.ttf") format("truetype");
 }
 
-.font-bord {
-  font-family: "Bord", sans-serif;
-}
-
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @theme {
+    --color-background: #0a0a0a;
+    --color-foreground: #ededed;
   }
 }
 
 body {
-  @apply bg-[var(--background)] text-[var(--foreground)] font-sans;
+  @apply bg-background text-foreground font-sans;
   scroll-behavior: smooth;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Custom scrollbar */

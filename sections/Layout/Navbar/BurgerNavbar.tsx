@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { socials } from "@/constants/socials";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import Link from "next/link";
 
 const navigationItems = [
   { name: "HOME", id: "hero" },
@@ -185,12 +186,13 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
       {/* Navigation Menu */}
       <nav
         ref={navRef}
-        className="fixed z-50 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80 pt-20 pb-8 md:pt-24 md:pb-10 gap-y-10 md:w-1/2 md:left-1/2"
+        className="fixed z-50 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80 pt-20 pb-8 md:pt-24 md:pb-10 md:w-1/2 md:left-1/2"
       >
-        <div className="flex flex-col text-4xl md:text-5xl lg:text-[4.8rem] gap-y-2 items-center">
+        <div className="flex flex-col text-4xl md:text-5xl lg:text-[4.8rem] items-center">
+          {" "}
           {navigationItems.map((item, index) => (
             <div
-              className="border border-gray-800 w-full text-center"
+              className="border border-white/20 w-full text-center font-spacegrotesk"
               key={item.name}
               ref={(el) => {
                 if (linkRefs.current) {
@@ -210,17 +212,20 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
 
         <div
           ref={contactRef}
-          className="flex flex-col flex-wrap justify-between gap-6 md:gap-8 md:flex-row"
+          className="flex flex-col flex-wrap justify-between md:flex-row"
         >
-          <div className="font-light">
-            <p className="tracking-wider text-white/50">E-mail</p>
-            <p className="text-lg tracking-widest lowercase text-pretty">
+          <div className="font-normal">
+            <p className="tracking-wider text-white/50 ">E-mail</p>
+            <Link
+              href="mailto:mine.shubhamsingh@gmail.com"
+              className="text-lg tracking-widest lowercase text-pretty hover:cursor-pointer hover:text-white transition-colors duration-300"
+            >
               mine.shubhamsingh@gmail.com
-            </p>
+            </Link>
           </div>
-          <div className="font-light">
+          <div className="font-normal">
             <p className="tracking-wider text-white/50">Social media</p>
-            <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
+            <div className="flex flex-col flex-wrap md:flex-row gap-2">
               {socials.map((social) => (
                 <a
                   href={social.href}
@@ -248,11 +253,11 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
       >
         <span
           ref={topLineRef}
-          className="block w-6 h-0.5 bg-white rounded-full origin-center"
+          className="block w-7 h-0.5 bg-white rounded-full origin-center"
         />
         <span
           ref={bottomLineRef}
-          className="block w-6 h-0.5 bg-white rounded-full origin-center"
+          className="block w-7 h-0.5 bg-white rounded-full origin-center"
         />
       </button>
     </>
