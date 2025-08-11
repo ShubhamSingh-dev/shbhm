@@ -6,7 +6,7 @@
 @theme {
   --color-background: #ffffff;
   --color-foreground: #171717;
-  
+
   --font-family-mediasans: "Media Sans SemiCondensed", sans-serif;
   --font-family-bord: "Bord", sans-serif;
   --font-family-manrope: "Manrope", sans-serif;
@@ -33,6 +33,12 @@
 @font-face {
   font-family: "Bord";
   src: url("../style/font/Bord.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Media Sans SemiCondensed";
+  src: url("../style/font/mediaSans/mediasanssemicondensed-regular-TRIAL-BF63c75479c7708.otf")
+    format("opentype");
 }
 
 /* Dark mode */
