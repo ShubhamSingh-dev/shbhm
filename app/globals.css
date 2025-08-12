@@ -75,8 +75,3 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-600;
 }
-
-/* Smooth transitions */
-* {
-  @apply transition-colors transition-transform transition-shadow duration-150 ease-in-out;
-}

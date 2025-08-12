@@ -2,17 +2,16 @@
 
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import { socials } from "@/constants/socials";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import Link from "next/link";
 
 const navigationItems = [
-  { name: "HOME", id: "hero" },
-  { name: "ABOUT", id: "about" },
-  { name: "SERVICES", id: "services" },
-  { name: "WORK", id: "work" },
-  { name: "CONTACT", id: "contact" },
+  { name: "HOME", id: "hero", hoverText: "GO HOME" },
+  { name: "ABOUT", id: "about", hoverText: "LEARN MORE" },
+  { name: "SERVICES", id: "services", hoverText: "WHAT I DO" },
+  { name: "WORK", id: "work", hoverText: "MY PROJECTS" },
+  { name: "CONTACT", id: "contact", hoverText: "GET IN TOUCH" },
 ];
 
 interface BurgerNavbarProps {
@@ -21,53 +20,47 @@ interface BurgerNavbarProps {
 }
 
 const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
-  // Refs
   const navRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const burgerRef = useRef<HTMLButtonElement>(null);
   const topLineRef = useRef<HTMLSpanElement>(null);
   const bottomLineRef = useRef<HTMLSpanElement>(null);
-  const linkRefs = useRef<(HTMLDivElement | null)[]>([]);
   const contactRef = useRef<HTMLDivElement>(null);
-
-  // Timelines
-  const menuTl = useRef<gsap.core.Timeline | null>(null);
-  const burgerTl = useRef<gsap.core.Timeline | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollTo } = useSmoothScroll();
 
-  useGSAP(() => {
-    // Initialize arrays
-    linkRefs.current = new Array(navigationItems.length).fill(null);
+  // Initialize animations once on mount
+  useEffect(() => {
+    if (
+      !navRef.current ||
+      !overlayRef.current ||
+      !contactRef.current ||
+      !containerRef.current
+    )
+      return;
 
-    // Wait for next tick to ensure refs are set
-    const initAnimation = () => {
-      // Check if all required refs exist
-      if (!navRef.current || !overlayRef.current || !contactRef.current) {
-        return;
-      }
+    // Set initial states
+    gsap.set(navRef.current, { xPercent: 100 });
+    gsap.set(overlayRef.current, { opacity: 0 });
+    gsap.set(contactRef.current, { opacity: 0, y: 20 });
 
-      // Filter out null refs for links
-      const validLinkRefs = linkRefs.current.filter(Boolean);
+    // Set initial state for navigation items using class selector
+    gsap.set(".nav-item", { opacity: 0, y: 30 });
+  }, []);
 
-      // Set initial states only for existing elements
-      gsap.set(navRef.current, { xPercent: 100 });
-      gsap.set(overlayRef.current, { opacity: 0 });
+  // Handle open/close animations
+  useEffect(() => {
+    if (!navRef.current || !overlayRef.current || !contactRef.current) return;
 
-      if (validLinkRefs.length > 0) {
-        gsap.set(validLinkRefs, { opacity: 0, y: 30 });
-      }
+    if (isOpen) {
+      // Create and play opening animation
+      const tl = gsap.timeline();
 
-      gsap.set(contactRef.current, { opacity: 0, y: 20 });
-
-      // Menu animation timeline
-      menuTl.current = gsap
-        .timeline({ paused: true })
-        .to(overlayRef.current, {
-          opacity: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        })
+      tl.to(overlayRef.current, {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out",
+      })
         .to(
           navRef.current,
           {
@@ -76,73 +69,99 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
             ease: "power3.out",
           },
           "-=0.1"
-        );
-
-      // Only animate links if they exist
-      if (validLinkRefs.length > 0) {
-        menuTl.current.to(
-          validLinkRefs,
+        )
+        .to(
+          ".nav-item",
           {
             opacity: 1,
             y: 0,
-            stagger: 0.08,
+            stagger: 0.1,
             duration: 0.5,
             ease: "power2.out",
           },
           "-=0.3"
+        )
+        .to(
+          contactRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: "power2.out",
+          },
+          "-=0.2"
         );
-      }
 
-      menuTl.current.to(
-        contactRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      );
-
-      // Burger icon animation for the lines inside this component
+      // Burger animation
       if (topLineRef.current && bottomLineRef.current) {
-        burgerTl.current = gsap
-          .timeline({ paused: true })
-          .to(topLineRef.current, {
-            rotation: 45,
-            y: 3.5,
-            duration: 0.3,
-            ease: "power2.inOut",
-          })
-          .to(
-            bottomLineRef.current,
-            {
-              rotation: -45,
-              y: -3.5,
-              duration: 0.3,
-              ease: "power2.inOut",
-            },
-            "<"
-          );
+        gsap.to(topLineRef.current, {
+          rotation: 45,
+          y: 3.5,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+        gsap.to(bottomLineRef.current, {
+          rotation: -45,
+          y: -3.5,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
       }
-    };
-
-    // Use setTimeout to ensure refs are set after render
-    const timeoutId = setTimeout(initAnimation, 0);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  // Watch for isOpen changes from parent and trigger animations
-  useEffect(() => {
-    if (isOpen) {
-      menuTl.current?.play();
-      burgerTl.current?.play();
     } else {
-      menuTl.current?.reverse();
-      burgerTl.current?.reverse();
+      // Create and play closing animation
+      const tl = gsap.timeline();
+
+      tl.to(".nav-item", {
+        opacity: 0,
+        y: 30,
+        stagger: 0.05,
+        duration: 0.3,
+        ease: "power2.in",
+      })
+        .to(
+          contactRef.current,
+          {
+            opacity: 0,
+            y: 20,
+            duration: 0.3,
+            ease: "power2.in",
+          },
+          "-=0.2"
+        )
+        .to(
+          navRef.current,
+          {
+            xPercent: 100,
+            duration: 0.5,
+            ease: "power3.in",
+          },
+          "-=0.1"
+        )
+        .to(
+          overlayRef.current,
+          {
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          "-=0.2"
+        );
+
+      // Reset burger animation
+      if (topLineRef.current && bottomLineRef.current) {
+        gsap.to(topLineRef.current, {
+          rotation: 0,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+        gsap.to(bottomLineRef.current, {
+          rotation: 0,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        });
+      }
     }
   }, [isOpen]);
 
@@ -175,7 +194,7 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
   }, [isOpen, toggleMenu]);
 
   return (
-    <>
+    <div ref={containerRef}>
       {/* Backdrop Overlay */}
       <div
         ref={overlayRef}
@@ -189,22 +208,24 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
         className="fixed z-50 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80 pt-20 pb-8 md:pt-24 md:pb-10 md:w-1/2 md:left-1/2"
       >
         <div className="flex flex-col text-4xl md:text-5xl lg:text-[4.8rem] items-center">
-          {" "}
           {navigationItems.map((item, index) => (
             <div
-              className="border border-white/20 w-full text-center font-spacegrotesk"
+              className="nav-item border border-white/20 w-full text-center font-spacegrotesk relative overflow-hidden"
               key={item.name}
-              ref={(el) => {
-                if (linkRefs.current) {
-                  linkRefs.current[index] = el;
-                }
-              }}
             >
               <button
                 onClick={() => handleNavClick(item.id)}
-                className="transition-all duration-300 cursor-pointer hover:text-white w-full font-bold tracking-tighter font-spacegrotesk py-2"
+                className="w-full font-bold tracking-tighter font-spacegrotesk py-2 transition-colors duration-300 relative group"
               >
-                {item.name}
+                {/* Original text */}
+                <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
+                  {item.name}
+                </span>
+
+                {/* Hover text that slides up from below */}
+                <span className="absolute inset-0 flex items-center justify-center text-white transform translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0">
+                  {item.hoverText}
+                </span>
               </button>
             </div>
           ))}
@@ -215,12 +236,15 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
           className="flex flex-col flex-wrap justify-between md:flex-row"
         >
           <div className="font-normal">
-            <p className="tracking-wider text-white/50 ">E-mail</p>
+            <p className="tracking-wider text-white/50">E-mail</p>
             <Link
               href="mailto:mine.shubhamsingh@gmail.com"
-              className="text-lg tracking-widest lowercase text-pretty hover:cursor-pointer hover:text-white transition-colors duration-300"
+              className="text-lg tracking-widest lowercase text-pretty hover:cursor-pointer hover:text-white transition-colors duration-300 relative group"
             >
-              mine.shubhamsingh@gmail.com
+              <span className="relative">
+                mine.shubhamsingh@gmail.com
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+              </span>
             </Link>
           </div>
           <div className="font-normal">
@@ -232,11 +256,13 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
                   key={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300"
+                  className="text-md leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300 relative group"
                 >
-                  {"{"}
-                  {social.name}
-                  {"}"}
+                  <span className="relative">
+                    {social.name}
+
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                  </span>
                 </a>
               ))}
             </div>
@@ -244,11 +270,10 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
         </div>
       </nav>
 
-      {/* Hamburger Button positioned over the MainNavbar button */}
+      {/* Hamburger Button */}
       <button
-        ref={burgerRef}
         onClick={toggleMenu}
-        className="fixed z-[70] flex flex-col justify-center items-center gap-1 transition-all duration-300 bg-gray-900 rounded-full cursor-pointer w-10 h-10 md:w-12 md:h-12 right-6 top-4"
+        className="fixed z-[70] flex flex-col justify-center items-center gap-1 bg-gray-900 rounded-full cursor-pointer w-10 h-10 md:w-12 md:h-12 right-6 top-4 transition-colors duration-300"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <span
@@ -260,7 +285,7 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
           className="block w-7 h-0.5 bg-white rounded-full origin-center"
         />
       </button>
-    </>
+    </div>
   );
 };
 
