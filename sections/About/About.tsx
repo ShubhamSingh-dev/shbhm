@@ -1,38 +1,50 @@
 "use client";
 import React, { useRef } from "react";
 import gsap from "gsap";
+import "./animations.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { skills } from "@/constants/constants";
+import { HighlightText, CircleText, InteractiveBox } from "./textAnimation";
+import { AnimationManager } from "./animation";
 
 gsap.registerPlugin(ScrollTrigger);
-const tl = gsap.timeline({ paused: true });
 
 const About: React.FC = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (marqueeRef.current) {
-      gsap.set(marqueeRef.current, { xPercent: 0 });
-      gsap.to(marqueeRef.current, {
-        xPercent: -50,
-        duration: 15,
-        ease: "none",
-        repeat: -1,
-      });
-    }
-  });
+    if (!mainContentRef.current) return;
 
-  const handleEnter = (target: EventTarget) => {
-    gsap.to(target, {
+    const animationManager = new AnimationManager(mainContentRef.current);
+
+    // Marquee animation
+    if (marqueeRef.current) {
+      animationManager.createMarqueeAnimation(marqueeRef.current);
+    }
+
+    // Highlight animations
+    animationManager.createHighlightAnimations([
+      { selector: ".highlight-sleek" },
+      { selector: ".highlight-flawless", delay: 0.3 },
+      { selector: ".highlight-smooth", delay: 0.3 },
+    ]);
+
+    // Circle animation
+    animationManager.createCircleAnimations([{ selector: ".circle-develop" }]);
+  }, []);
+
+  const handleEnter = (e: React.MouseEvent) => {
+    gsap.to(e.currentTarget, {
       scale: 2.5,
       duration: 0.4,
       ease: "power2.out",
     });
   };
 
-  const handleLeave = (target: EventTarget) => {
-    gsap.to(target, {
+  const handleLeave = (e: React.MouseEvent) => {
+    gsap.to(e.currentTarget, {
       scale: 1,
       duration: 0.4,
       ease: "power2.out",
@@ -72,46 +84,79 @@ const About: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <main className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-100 text-black rounded-4xl">
-        <h1 className="font-vailery font-semibold text-lg tracking-wide mb-10 ">
+      <main
+        ref={mainContentRef}
+        className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-200 text-black rounded-4xl"
+      >
+        <h1 className="font-vailery font-semibold text-lg tracking-wide mb-10">
           What you can expect from me:
         </h1>
 
-        <div className="text-2xl md:text-5xl lg:text-6xl font-semibold leading-snug text-center">
-          I craft visually stunning
-          <span
-            onMouseEnter={(e) => handleEnter(e.currentTarget)}
-            onMouseLeave={(e) => handleLeave(e.currentTarget)}
-            className="inline-block align-middle px-3"
-          >
-            <div className="w-8 h-8 md:w-10 md:h-10 lg:w-14 lg:h-14 bg-black rounded-md" />
-          </span>
-          websites that offer
+        <div className="text-2xl md:text-4xl lg:text-5xl font-semibold leading-tight text-center">
+          I design and{" "}
+          <CircleText className="circle-develop">develop</CircleText>{" "}
+          high-impact
+          <InteractiveBox
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+          />
+          websites that blend
         </div>
 
-        <div className="my-8 ml-[20rem] flex justify-start ">
-          <span
-            onMouseEnter={(e) => handleEnter(e.currentTarget)}
-            onMouseLeave={(e) => handleLeave(e.currentTarget)}
+        <div className="text-2xl md:text-4xl lg:text-5xl font-semibold leading-tight text-center">
+          <span>
+            <HighlightText className="highlight-sleek">
+              sleek visuals
+            </HighlightText>
+            ,{" "}
+            <InteractiveBox
+              onMouseEnter={handleEnter}
+              onMouseLeave={handleLeave}
+            />
+            custom animations, and{" "}
+            <HighlightText className="highlight-flawless">
+              flawless
+            </HighlightText>{" "}
+            responsiveness
+          </span>
+        </div>
+
+        <div className="text-2xl md:text-4xl lg:text-5xl font-semibold leading-tight mt-8 text-center">
+          <InteractiveBox
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
             className="inline-block px-3"
-          >
-            <div className="w-8 h-8 md:w-10 md:h-10 lg:w-14 lg:h-14 bg-black rounded-md" />
-          </span>
+          />
+          delivering
+          <HighlightText className="highlight-smooth">
+            smooth, interactive
+          </HighlightText>
+          experiences with a modern edge.
         </div>
 
-        <div className="text-2xl md:text-5xl lg:text-6xl font-semibold leading-snug text-center">
-          <span>smooth, interactive experiences with custom animations</span>
-        </div>
+        <div className="w-full flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:items-start pt-18">
+          <aside className="lg:w-1/4 flex flex-col gap-2">
+            <h1 className="text-3xl font-vailery font-semibold tracking-wide mb-2">
+              All Services:
+            </h1>
+            <h2 className="font-general text-sm sm:text-xl text-[#535353]">
+              Web Development: Websites, Landing Pages, Custom Web Applications
+            </h2>
+            <h2 className="font-general text-sm sm:text-md text-[#535353]">
+              From Development to Deployment
+            </h2>
+          </aside>
 
-        <div className="text-2xl md:text-5xl lg:text-6xl font-semibold leading-snug mt-8 text-center">
-          <span
-            onMouseEnter={(e) => handleEnter(e.currentTarget)}
-            onMouseLeave={(e) => handleLeave(e.currentTarget)}
-            className="inline-block px-3"
-          >
-            <div className="w-8 h-8 md:w-10 md:h-10 lg:w-14 lg:h-14 bg-black rounded-md" />
-          </span>
-          and modern design.
+          <aside className="lg:w-2/4 flex flex-col gap-2">
+            <p className="text-[#363636] tracking-wider font-semibold text-sm sm:text-lg">
+              I'm a dedicated developer crafting custom websites, landing pages,
+              and mobile apps that combine modern design with clean, efficient
+              code. I focus on building responsive, intuitive experiences that
+              look great and work flawlessly. From concept to launch, I
+              collaborate closely with clients to turn ideas into polished
+              digital products, delivered with precision and care.
+            </p>
+          </aside>
         </div>
       </main>
     </section>

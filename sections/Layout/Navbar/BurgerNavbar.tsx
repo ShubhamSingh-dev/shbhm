@@ -198,16 +198,16 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
       {/* Backdrop Overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0  bg-black/50 backdrop-blur-sm pointer-events-none"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998]"
         style={{ display: isOpen ? "block" : "none" }}
       />
 
       {/* Navigation Menu */}
       <nav
         ref={navRef}
-        className="fixed z-[999] top-0 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80  pb-8 md:pt-24 md:pb-10 md:w-1/2 md:left-1/2"
+        className="fixed z-[9999] top-0 right-0 flex flex-col justify-between w-full md:w-1/2 md:left-1/2 h-full px-6 md:px-10 uppercase bg-black text-white/80 pt-16 pb-8 md:pt-24 md:pb-10"
       >
-        <div className="flex flex-col text-4xl md:text-5xl lg:text-[4.8rem] items-center">
+        <div className="flex flex-col text-3xl sm:text-4xl md:text-5xl lg:text-[4.8rem] items-center mt-8 md:mt-0">
           {navigationItems.map((item, index) => (
             <div
               className="nav-item border border-white/20 w-full text-center font-spacegrotesk relative overflow-hidden"
@@ -215,7 +215,7 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
             >
               <button
                 onClick={() => handleNavClick(item.id)}
-                className="w-full font-bold tracking-tighter font-spacegrotesk py-2 transition-colors duration-300 relative group"
+                className="w-full font-bold tracking-tighter font-spacegrotesk py-2  transition-colors duration-300 relative group"
               >
                 {/* Original text */}
                 <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
@@ -233,13 +233,15 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
 
         <div
           ref={contactRef}
-          className="flex flex-col flex-wrap justify-between md:flex-row"
+          className="flex flex-col gap-6 md:gap-4 justify-between md:flex-row"
         >
           <div className="font-normal">
-            <p className="tracking-wider text-white/50">E-mail</p>
+            <p className="tracking-wider text-white/50 text-sm md:text-base">
+              E-mail
+            </p>
             <Link
               href="mailto:mine.shubhamsingh@gmail.com"
-              className="text-lg tracking-widest lowercase text-pretty hover:cursor-pointer hover:text-white transition-colors duration-300 relative group"
+              className="text-sm md:text-xl tracking-widest lowercase text-pretty hover:cursor-pointer hover:text-white transition-colors duration-300 relative group break-all"
             >
               <span className="relative">
                 mine.shubhamsingh@gmail.com
@@ -248,7 +250,9 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
             </Link>
           </div>
           <div className="font-normal">
-            <p className="tracking-wider text-white/50">Social media</p>
+            <p className="tracking-wider text-white/50 text-sm md:text-base">
+              Social media
+            </p>
             <div className="flex flex-col flex-wrap md:flex-row gap-2">
               {socials.map((social) => (
                 <a
@@ -256,11 +260,10 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
                   key={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-md leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300 relative group"
+                  className="text-sm md:text-md leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300 relative group"
                 >
                   <span className="relative">
                     {social.name}
-
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
                   </span>
                 </a>
@@ -270,19 +273,19 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
         </div>
       </nav>
 
-      {/* Hamburger Button */}
+      {/* Hamburger Button - Fixed positioning for all screen sizes */}
       <button
         onClick={toggleMenu}
-        className="fixed z-[999] flex flex-col justify-center items-center gap-1 bg-gray-900 rounded-full cursor-pointer w-10 h-10 md:w-12 md:h-12 right-6 top-4 transition-colors duration-300"
+        className="fixed z-[10000] flex flex-col justify-center items-center gap-1 bg-gray-900 rounded-full cursor-pointer w-10 h-10 sm:w-12 sm:h-12 right-4 sm:right-6 top-4 transition-colors duration-300 "
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <span
           ref={topLineRef}
-          className="block w-7 h-0.5 bg-white rounded-full origin-center"
+          className="block w-5 sm:w-7 h-0.5 bg-white rounded-full origin-center"
         />
         <span
           ref={bottomLineRef}
-          className="block w-7 h-0.5 bg-white rounded-full origin-center"
+          className="block w-5 sm:w-7 h-0.5 bg-white rounded-full origin-center"
         />
       </button>
     </div>

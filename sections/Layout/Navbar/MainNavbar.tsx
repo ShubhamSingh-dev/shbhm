@@ -36,9 +36,9 @@ export default function MainNavbar() {
       {/* Main Navbar */}
       <header
         ref={navbarRef}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 w-full z-[9997] transition-all duration-300 ease-in-out ${
           isVisible ? "translate-y-0" : "-translate-y-full"
-        } bg-transparent flex justify-between items-center px-6 py-4 z-50 `}
+        } bg-transparent flex justify-between items-center px-4 sm:px-6 py-4`}
       >
         {/* Left - Available for work */}
         <div className="flex items-center gap-2">
@@ -47,10 +47,10 @@ export default function MainNavbar() {
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </span>
           {/* Responsive text: "Available for work" on desktop, "Available" on mobile */}
-          <span className="text-sm text-black tracking-wider md:text-base md:inline hidden">
+          <span className="text-sm text-black tracking-wider md:text-base hidden sm:inline">
             Available for work
           </span>
-          <span className="text-sm text-black md:hidden tracking-wider">
+          <span className="text-xs sm:text-sm text-black sm:hidden tracking-wider">
             Available
           </span>
         </div>
@@ -59,14 +59,17 @@ export default function MainNavbar() {
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link
             href="/"
-            className="font-bord text-2xl md:text-3xl font-bold tracking-wider uppercase text-black hover:text-gray-600 transition-colors duration-200"
+            className="font-bord text-xl sm:text-2xl md:text-3xl font-bold tracking-wider uppercase text-black hover:text-gray-600 transition-colors duration-200"
           >
             SHBHM
           </Link>
         </div>
 
-        <BurgerNavbar isOpen={isOpen} toggleMenu={toggleMenu} />
+        {/* Right side is handled by BurgerNavbar component */}
+        <div className="w-10 sm:w-12"> {/* Spacer for burger button */}</div>
       </header>
+
+      <BurgerNavbar isOpen={isOpen} toggleMenu={toggleMenu} />
     </>
   );
 }
