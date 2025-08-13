@@ -38,7 +38,7 @@ export default function MainNavbar() {
         ref={navbarRef}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
           isVisible ? "translate-y-0" : "-translate-y-full"
-        } bg-white flex justify-between items-center px-6 py-4 z-50 `}
+        } bg-transparent flex justify-between items-center px-6 py-4 z-50 `}
       >
         {/* Left - Available for work */}
         <div className="flex items-center gap-2">

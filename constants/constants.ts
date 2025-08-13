@@ -24,3 +24,12 @@ export const navigationItems = [
   { name: "WORK", id: "work" },
   { name: "CONTACT", id: "contact" },
 ];
+
+export const skills: string[] = [
+  "UI/UX",
+  "Database",
+  "Frontend",
+  "Backend",
+  "Development",
+  "Deployment",
+];

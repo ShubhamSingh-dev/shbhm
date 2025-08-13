@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { socials } from "@/constants/socials";
+import { socials } from "@/constants/constants";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import Link from "next/link";
 

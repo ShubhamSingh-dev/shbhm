@@ -11,6 +11,7 @@
   --font-family-bord: "Bord", sans-serif;
   --font-family-manrope: "Manrope", sans-serif;
   --font-family-spacegrotesk: "Space Grotesk", sans-serif;
+  --font-family-vailery: "Vailery", sans-serif;
 }
 
 /* Font utilities */
@@ -30,6 +31,10 @@
   font-family: theme(--font-family-spacegrotesk);
 }
 
+@utility font-vailery {
+  font-family: theme(--font-family-vailery);
+}
+
 @font-face {
   font-family: "Bord";
   src: url("../style/font/Bord.ttf") format("truetype");
@@ -39,6 +44,11 @@
   font-family: "Media Sans SemiCondensed";
   src: url("../style/font/mediaSans/mediasanssemicondensed-regular-TRIAL-BF63c75479c7708.otf")
     format("opentype");
+}
+
+@font-face {
+  font-family: "Vailery";
+  src: url("../style//font/vailery/vailery.otf") format("opentype");
 }
 
 /* Dark mode */
