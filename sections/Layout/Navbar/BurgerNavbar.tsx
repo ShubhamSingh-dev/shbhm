@@ -198,14 +198,14 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
       {/* Backdrop Overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm pointer-events-none"
+        className="fixed inset-0  bg-black/50 backdrop-blur-sm pointer-events-none"
         style={{ display: isOpen ? "block" : "none" }}
       />
 
       {/* Navigation Menu */}
       <nav
         ref={navRef}
-        className="fixed z-60 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80 pt-20 pb-8 md:pt-24 md:pb-10 md:w-1/2 md:left-1/2"
+        className="fixed z-[999] top-0 flex flex-col justify-between w-full h-full px-6 md:px-10 uppercase bg-black text-white/80  pb-8 md:pt-24 md:pb-10 md:w-1/2 md:left-1/2"
       >
         <div className="flex flex-col text-4xl md:text-5xl lg:text-[4.8rem] items-center">
           {navigationItems.map((item, index) => (
@@ -273,7 +273,7 @@ const BurgerNavbar = ({ isOpen, toggleMenu }: BurgerNavbarProps) => {
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="fixed z-[70] flex flex-col justify-center items-center gap-1 bg-gray-900 rounded-full cursor-pointer w-10 h-10 md:w-12 md:h-12 right-6 top-4 transition-colors duration-300"
+        className="fixed z-[999] flex flex-col justify-center items-center gap-1 bg-gray-900 rounded-full cursor-pointer w-10 h-10 md:w-12 md:h-12 right-6 top-4 transition-colors duration-300"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <span

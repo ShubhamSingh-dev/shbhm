@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Cursor from "@/components/specific/Cursor";
+import MainNavbar from "@/sections/Layout/Navbar/MainNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <MainNavbar />
         <Cursor />
         {children}
       </body>

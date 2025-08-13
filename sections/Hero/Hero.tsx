@@ -9,10 +9,10 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-screen bg-white text-black overflow-hidden">
-      <MainNavbar />
+      
 
       {/* Hero Content */}
-      <main className="relative z-10 flex flex-col justify-center h-screen px-6 md:px-12 lg:px-20">
+      <main className="relative flex flex-col justify-center h-screen px-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-mediasansextended mb-4 text-gray-700">
             Hi👋, my name is Shubham and I am a
