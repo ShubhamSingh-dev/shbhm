@@ -65,19 +65,8 @@ export default function MainNavbar() {
           </Link>
         </div>
 
-        {/* Right - Hamburger */}
-        <button
-          onClick={toggleMenu}
-          className="flex flex-col justify-center items-center gap-1 w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-900 z-[60]"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-        >
-          <span className="block w-6 h-0.5 bg-white rounded-full origin-center transition-transform duration-300" />
-          <span className="block w-6 h-0.5 bg-white rounded-full origin-center transition-transform duration-300" />
-        </button>
+        <BurgerNavbar isOpen={isOpen} toggleMenu={toggleMenu} />
       </header>
-
-      {/* Burger menu overlay for mobile */}
-      <BurgerNavbar isOpen={isOpen} toggleMenu={toggleMenu} />
     </>
   );
 }
