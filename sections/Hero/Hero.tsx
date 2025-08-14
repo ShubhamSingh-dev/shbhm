@@ -50,7 +50,7 @@ const Hero = () => {
               & AI/ML Enthusiast
             </span>
           </div>
-          <div className="mt-10">
+          <div className="mt-10 ">
             <Button
               variant="primary"
               text="Contact Me"

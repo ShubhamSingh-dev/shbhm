@@ -5,16 +5,16 @@ import gsap from "gsap";
 export interface ButtonProps {
   variant: "primary" | "secondary" | "tertiary";
   text: string;
-  size: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg";
   startIcon?: ReactElement;
   endIcon?: ReactElement;
   onClick?: () => void;
 }
 
 const variantStyles = {
-  primary: "bg-white text-black border border-black",
-  secondary: "bg-white text-black border border-black",
-  tertiary: "bg-transparent text-purple-600 border border-purple-600",
+  primary: "bg-white text-black border border-black rounded-full",
+  secondary: "bg-black text-white border border-black rounded-full",
+  tertiary: "text-black", // no bg, no border, no padding
 };
 
 const sizeStyles = {
@@ -24,26 +24,31 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "relative rounded-full flex gap-2 items-center justify-center overflow-hidden";
+  "relative flex gap-2 items-center justify-center overflow-hidden transition-colors duration-300";
 
-const Button = (props: ButtonProps) => {
+const Button = ({
+  variant,
+  text,
+  size = "md",
+  startIcon,
+  endIcon,
+  onClick,
+}: ButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const fillRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
 
   const handleMouseEnter = () => {
+    if (variant === "tertiary") return;
     if (!buttonRef.current || !fillRef.current || !textRef.current) return;
 
     const button = buttonRef.current;
     const fill = fillRef.current;
-    const text = textRef.current;
+    const textEl = textRef.current;
 
     const rect = button.getBoundingClientRect();
-    const buttonWidth = rect.width;
-    const buttonHeight = rect.height;
-
     const maxDistance = Math.sqrt(
-      Math.pow(buttonWidth / 2, 2) + Math.pow(buttonHeight, 2)
+      Math.pow(rect.width / 2, 2) + Math.pow(rect.height, 2)
     );
     const diameter = maxDistance * 2;
 
@@ -54,66 +59,73 @@ const Button = (props: ButtonProps) => {
       top: "100%",
       xPercent: -50,
       yPercent: -50,
-      backgroundColor: "black",
+      backgroundColor: variant === "primary" ? "black" : "white",
     });
 
     gsap.to(fill, {
       width: diameter,
       height: diameter,
-      duration: 0.5,
+      duration: 0.45,
       ease: "power2.out",
-    });
-
-    gsap.to(text, {
-      color: "white",
-      duration: 0.3,
-      delay: 0.1,
+      onStart: () => {
+        gsap.to(textEl, {
+          color: variant === "primary" ? "white" : "black",
+          duration: 0.25,
+          delay: 0.05,
+        });
+      },
     });
   };
 
   const handleMouseLeave = () => {
+    if (variant === "tertiary") return;
     if (!fillRef.current || !textRef.current) return;
 
     gsap.to(fillRef.current, {
       width: 0,
       height: 0,
-      duration: 0.5,
+      duration: 0.45,
       ease: "power2.out",
     });
 
     gsap.to(textRef.current, {
-      color: "black",
-      duration: 0.3,
+      color: variant === "primary" ? "black" : "white",
+      duration: 0.25,
     });
   };
+
+  if (variant === "tertiary") {
+    // Pure text with underline on hover
+    return (
+      <button
+        onClick={onClick}
+        className="relative font-semibold text-black group"
+      >
+        <span className="flex gap-2 items-center">
+          {startIcon} {text} {endIcon}
+        </span>
+        <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-black transition-all duration-300 group-hover:w-full"></span>
+      </button>
+    );
+  }
 
   return (
     <button
       ref={buttonRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={props.onClick}
-      className={`${variantStyles[props.variant]} ${defaultStyles} ${
-        sizeStyles[props.size]
-      }`}
+      onClick={onClick}
+      className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} font-semibold`}
     >
-      {/* Flood fill circle */}
+      {/* Fill effect */}
       <span
         ref={fillRef}
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          transform: "translate(-50%, -50%)",
-          zIndex: 1,
-        }}
+        className="absolute z-0 rounded-full pointer-events-none"
       />
 
-      {/* Button content */}
-      <span
-        ref={textRef}
-        className="relative z-10 flex gap-2 items-center font-semibold"
-        style={{ color: "black" }}
-      >
-        {props.startIcon} {props.text} {props.endIcon}
+      {/* Button text */}
+      <span ref={textRef} className="relative z-10 flex gap-2 items-center">
+        {startIcon} {text} {endIcon}
       </span>
     </button>
   );

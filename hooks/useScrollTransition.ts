@@ -33,10 +33,11 @@ export const useScrollTransition = () => {
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: "bottom top",
+        end: "50% top", // Animation completes at 50% of container height
         scrub: 1,
         pin: true,
         anticipatePin: 1,
+        pinSpacing: true, // This ensures proper spacing after the pinned element
       },
     });
 

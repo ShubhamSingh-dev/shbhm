@@ -16,15 +16,16 @@ const ScrollTransitionContainer: React.FC<ScrollTransitionContainerProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative w-full"
+      style={{ height: "200vh" }} // Double viewport height for scroll distance
     >
       {/* Hero Section */}
-      <div ref={heroRef} className="absolute inset-0">
+      <div ref={heroRef} className="absolute inset-0 w-full h-screen">
         {heroComponent}
       </div>
 
       {/* About Section */}
-      <div ref={aboutRef} className="absolute inset-0">
+      <div ref={aboutRef} className="absolute inset-0 w-full h-screen">
         {aboutComponent}
       </div>
     </div>
