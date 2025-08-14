@@ -1,17 +1,17 @@
+import ScrollTransitionContainer from "@/components/pageTransitionContainer";
 import About from "@/sections/About/About";
 import Hero from "@/sections/Hero/Hero";
 import React from "react";
 
-const App = () => {
+const page = () => {
   return (
-    <>
-      <section className="bg-white text-black flex flex-col items-center justify-center h-screen">
-        <Hero />
-      </section>
-      <About />
-      
-    </>
+    <div>
+      <ScrollTransitionContainer 
+        heroComponent={<Hero />} 
+        aboutComponent={<About />} 
+      />
+    </div>
   );
 };
 
-export default App;
+export default page;

@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/specific/Button";
-import MainNavbar from "../Layout/Navbar/MainNavbar";
+
 import React, { useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 
@@ -9,10 +9,8 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-screen bg-white text-black overflow-hidden">
-      
-
-      {/* Hero Content */}
-      <main className="relative flex flex-col justify-center h-screen px-6 md:px-12 lg:px-20">
+      {/* Hero Content - Add hero-content class for GSAP targeting */}
+      <main className="hero-content relative flex flex-col justify-center h-screen px-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl font-mediasansextended mb-4 text-gray-700">
             Hi👋, my name is Shubham and I am a
