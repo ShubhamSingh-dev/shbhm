@@ -22,10 +22,12 @@ export const useScrollTransition = () => {
     gsap.set(aboutSection, {
       yPercent: 100,
       zIndex: 10,
+      pointerEvents: "none",
     });
 
     gsap.set(heroSection, {
       zIndex: 5,
+      pointerEvents: "auto",
     });
 
     // Create the scroll-triggered animation
@@ -38,6 +40,18 @@ export const useScrollTransition = () => {
         pin: true,
         anticipatePin: 1,
         pinSpacing: true, // This ensures proper spacing after the pinned element
+        onUpdate: (self) => {
+          // Toggle pointer events based on scroll progress
+          if (self.progress < 0.5) {
+            // Hero is in view
+            heroSection.style.pointerEvents = "auto";
+            aboutSection.style.pointerEvents = "none";
+          } else {
+            // About is in view
+            heroSection.style.pointerEvents = "none";
+            aboutSection.style.pointerEvents = "auto";
+          }
+        },
       },
     });
 
@@ -48,19 +62,40 @@ export const useScrollTransition = () => {
       ease: "none",
     });
 
-    // Fade out hero content
+    // Fade out hero content but preserve button interactivity
     const heroContent = heroSection.querySelector(".hero-content");
     if (heroContent) {
-      tl.to(
-        heroContent,
-        {
-          opacity: 0,
-          scale: 0.9,
-          duration: 1,
-          ease: "none",
-        },
-        0
+      // Find the button container and exclude it from fade animation
+      const buttonContainer = heroContent.querySelector(
+        '[style*="z-index: 50"]'
       );
+
+      // Create separate timelines for different elements
+      const heroText = heroContent.querySelectorAll(
+        'p, div:not([style*="z-index: 50"])'
+      );
+
+      if (heroText.length > 0) {
+        tl.to(
+          heroText,
+          {
+            opacity: 0,
+            scale: 0.9,
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
+      }
+
+      // Keep button container fully interactive by not animating it
+      if (buttonContainer) {
+        gsap.set(buttonContainer, {
+          willChange: "auto",
+          pointerEvents: "auto",
+          opacity: 1,
+        });
+      }
     }
 
     // Cleanup function

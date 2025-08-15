@@ -30,7 +30,7 @@ export class AnimationManager {
         { backgroundSize: "0% 100%" },
         {
           backgroundSize: "100% 100%",
-          duration: 1,
+          duration: 1.2,
           ease: "power2.out",
           delay,
           scrollTrigger: {

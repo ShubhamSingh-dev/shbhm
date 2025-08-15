@@ -50,13 +50,25 @@ const Hero = () => {
               & AI/ML Enthusiast
             </span>
           </div>
-          <div className="mt-10 ">
+
+          {/* Button container with explicit positioning to avoid scroll interference */}
+          <div
+            className="mt-10 relative"
+            style={{
+              zIndex: 50,
+              pointerEvents: "auto",
+              willChange: "auto",
+            }}
+          >
             <Button
               variant="primary"
               text="Contact Me"
               size="lg"
               endIcon={<GoArrowUpRight className="w-6 h-6" />}
-              onClick={() => {}}
+              onClick={() => {
+                console.log("Button clicked - hover effect should work!");
+                // Add your click handler here
+              }}
             />
           </div>
         </div>

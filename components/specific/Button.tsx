@@ -24,7 +24,7 @@ const sizeStyles = {
 };
 
 const defaultStyles =
-  "relative flex gap-2 items-center justify-center overflow-hidden transition-colors duration-300";
+  "relative flex gap-2 items-center justify-center overflow-hidden transition-colors duration-300 cursor-pointer";
 
 const Button = ({
   variant,
@@ -42,6 +42,9 @@ const Button = ({
     if (variant === "tertiary") return;
     if (!buttonRef.current || !fillRef.current || !textRef.current) return;
 
+    // Kill any existing animations to prevent conflicts
+    gsap.killTweensOf([fillRef.current, textRef.current]);
+
     const button = buttonRef.current;
     const fill = fillRef.current;
     const textEl = textRef.current;
@@ -52,28 +55,31 @@ const Button = ({
     );
     const diameter = maxDistance * 2;
 
+    // Set initial state for fill element
     gsap.set(fill, {
       width: 0,
       height: 0,
       left: "50%",
       top: "100%",
-      xPercent: -50,
-      yPercent: -50,
+      x: "-50%",
+      y: "-50%",
       backgroundColor: variant === "primary" ? "black" : "white",
+      borderRadius: "50%",
     });
 
+    // Animate fill expanding
     gsap.to(fill, {
       width: diameter,
       height: diameter,
       duration: 0.45,
       ease: "power2.out",
-      onStart: () => {
-        gsap.to(textEl, {
-          color: variant === "primary" ? "white" : "black",
-          duration: 0.25,
-          delay: 0.05,
-        });
-      },
+    });
+
+    // Animate text color change
+    gsap.to(textEl, {
+      color: variant === "primary" ? "white" : "black",
+      duration: 0.25,
+      delay: 0.1,
     });
   };
 
@@ -81,6 +87,10 @@ const Button = ({
     if (variant === "tertiary") return;
     if (!fillRef.current || !textRef.current) return;
 
+    // Kill any existing animations
+    gsap.killTweensOf([fillRef.current, textRef.current]);
+
+    // Animate fill shrinking
     gsap.to(fillRef.current, {
       width: 0,
       height: 0,
@@ -88,18 +98,19 @@ const Button = ({
       ease: "power2.out",
     });
 
+    // Animate text color back
     gsap.to(textRef.current, {
       color: variant === "primary" ? "black" : "white",
       duration: 0.25,
     });
   };
 
+  // Handle tertiary variant (text-only button with underline)
   if (variant === "tertiary") {
-    // Pure text with underline on hover
     return (
       <button
         onClick={onClick}
-        className="relative font-semibold text-black group"
+        className="relative font-semibold text-black group cursor-pointer"
       >
         <span className="flex gap-2 items-center">
           {startIcon} {text} {endIcon}
@@ -116,15 +127,30 @@ const Button = ({
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
       className={`${variantStyles[variant]} ${defaultStyles} ${sizeStyles[size]} font-semibold`}
+      style={{
+        willChange: "auto",
+        zIndex: 10,
+        position: "relative",
+      }}
     >
       {/* Fill effect */}
       <span
         ref={fillRef}
-        className="absolute z-0 rounded-full pointer-events-none"
+        className="absolute pointer-events-none"
+        style={{
+          zIndex: 1,
+          borderRadius: "50%",
+        }}
       />
 
       {/* Button text */}
-      <span ref={textRef} className="relative z-10 flex gap-2 items-center">
+      <span
+        ref={textRef}
+        className="relative flex gap-2 items-center"
+        style={{
+          zIndex: 2,
+        }}
+      >
         {startIcon} {text} {endIcon}
       </span>
     </button>

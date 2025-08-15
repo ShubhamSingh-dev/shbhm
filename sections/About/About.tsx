@@ -27,12 +27,14 @@ const About: React.FC = () => {
     // Highlight animations
     animationManager.createHighlightAnimations([
       { selector: ".highlight-sleek" },
-      { selector: ".highlight-flawless", delay: 0.3 },
-      { selector: ".highlight-smooth", delay: 0.3 },
+      { selector: ".highlight-flawless", delay: 0.5 },
+      { selector: ".highlight-smooth", delay: 0.5 },
     ]);
 
     // Circle animation
-    animationManager.createCircleAnimations([{ selector: ".circle-develop" }]);
+    animationManager.createCircleAnimations([
+      { selector: ".circle-develop", delay: 0.5 },
+    ]);
   }, []);
 
   const handleEnter = (e: React.MouseEvent) => {
@@ -52,7 +54,7 @@ const About: React.FC = () => {
   };
 
   return (
-    <section className="relative bg-black text-white flex flex-col justify-center h-auto py-20">
+    <section className="relative bg-black text-white flex flex-col justify-center pb-8">
       {/* Top wave */}
       <div className="absolute -top-65 left-0 w-full overflow-hidden leading-[0] z-0">
         <svg
@@ -86,7 +88,7 @@ const About: React.FC = () => {
       {/* Main content */}
       <main
         ref={mainContentRef}
-        className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-200 text-black rounded-4xl"
+        className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-200 text-black rounded-4xl mt-20"
       >
         <h1 className="font-vailery font-semibold text-lg tracking-wide mb-10">
           What you can expect from me:
