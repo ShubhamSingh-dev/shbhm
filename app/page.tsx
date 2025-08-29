@@ -2,11 +2,12 @@ import ScrollTransitionContainer from "@/components/pageTransitionContainer";
 import About from "@/sections/About/About";
 import Hero from "@/sections/Hero/Hero";
 import Skills from "@/sections/Skills/Skills";
+import ReactLenis from "lenis/react";
 import React from "react";
 
 const page = () => {
   return (
-    <div>
+    <ReactLenis>
       <ScrollTransitionContainer
         heroComponent={<Hero />}
         aboutComponent={<About />}
@@ -28,7 +29,7 @@ const page = () => {
           <p className="text-xl">Final section</p>
         </div>
       </section>
-    </div>
+    </ReactLenis>
   );
 };
 
