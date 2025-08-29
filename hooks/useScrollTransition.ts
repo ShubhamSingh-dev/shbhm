@@ -35,14 +35,14 @@ export const useScrollTransition = () => {
       scrollTrigger: {
         trigger: container,
         start: "top top",
-        end: "50% top", // Animation completes at 50% of container height
+        end: "40% top", // Reduced from 50% to 40% to make transition faster
         scrub: 1,
         pin: true,
         anticipatePin: 1,
-        pinSpacing: true, // This ensures proper spacing after the pinned element
+        pinSpacing: false, // This prevents extra space after pinned section
         onUpdate: (self) => {
           // Toggle pointer events based on scroll progress
-          if (self.progress < 0.5) {
+          if (self.progress < 0.4) {
             // Hero is in view
             heroSection.style.pointerEvents = "auto";
             aboutSection.style.pointerEvents = "none";

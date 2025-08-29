@@ -1,6 +1,7 @@
 import ScrollTransitionContainer from "@/components/pageTransitionContainer";
 import About from "@/sections/About/About";
 import Hero from "@/sections/Hero/Hero";
+import Skills from "@/sections/Skills/Skills";
 import React from "react";
 
 const page = () => {
@@ -12,14 +13,7 @@ const page = () => {
       />
 
       {/* Additional sections can be added here and they will appear normally after the scroll transition */}
-      <section className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4">Services Section</h2>
-          <p className="text-xl">
-            This section appears after the scroll transition
-          </p>
-        </div>
-      </section>
+      <Skills />
 
       <section className="min-h-screen bg-blue-100 flex items-center justify-center">
         <div className="text-center">

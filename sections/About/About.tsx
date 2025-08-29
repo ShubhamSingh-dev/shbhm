@@ -54,7 +54,7 @@ const About: React.FC = () => {
   };
 
   return (
-    <section className="relative bg-black text-white flex flex-col justify-center pb-8">
+    <section className="relative bg-black text-white flex flex-col justify-start min-h-screen">
       {/* Top wave */}
       <div className="absolute -top-65 left-0 w-full overflow-hidden leading-[0] z-0">
         <svg
@@ -85,10 +85,10 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      {/* Main content */}
+      {/* Main content - Adjusted positioning and sizing */}
       <main
         ref={mainContentRef}
-        className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-200 text-black rounded-4xl mt-20"
+        className="w-[90%] p-6 md:px-12 lg:px-20 max-w-10xl mx-auto bg-gray-200 text-black rounded-4xl mt-20 mb-4 flex-shrink-0"
       >
         <h1 className="font-vailery font-semibold text-lg tracking-wide mb-10">
           What you can expect from me:
@@ -136,7 +136,7 @@ const About: React.FC = () => {
           experiences with a modern edge.
         </div>
 
-        <div className="w-full flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:items-start pt-18">
+        <div className="w-full flex flex-col-reverse gap-5 lg:flex-row lg:justify-between lg:items-start pt-18 pb-8">
           <aside className="lg:w-1/4 flex flex-col gap-2">
             <h1 className="text-3xl font-vailery font-semibold tracking-wide mb-2">
               All Services:
