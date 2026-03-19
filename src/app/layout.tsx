@@ -6,6 +6,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/common/navbar";
+import { SiteFooter } from "@/components/common/site-footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({
             <TooltipProvider>
               <Navbar />
               {children}
+              <SiteFooter/>
             </TooltipProvider>
           </ThemeProvider>
         </body>

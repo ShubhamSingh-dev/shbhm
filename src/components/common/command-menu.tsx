@@ -14,6 +14,8 @@ import {
   SunMediumIcon,
   TwitterIcon,
   MonitorIcon,
+  Folder,
+  File,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import React, { useCallback, useState } from "react";
@@ -49,6 +51,8 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { title: "Home", href: "/", icon: <HomeIcon /> },
   { title: "Blog", href: "/blog", icon: <BookOpenIcon /> },
+  { title: "Projects", href: "/projects", icon: <Folder />},
+  { title: "Resume", href: "/resume", icon: <File />}
 ];
 
 const SOCIAL_ITEMS: NavItem[] = [
