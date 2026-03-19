@@ -32,12 +32,17 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  GITHUB_USERNAME,
+  X_USERNAME,
+  SOURCE_CODE_GITHUB_REPO,
+} from "@/config/site";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
-type NavItem = {
+type CommandNavItem = {
   title: string;
   href: string;
   icon: React.ReactNode;
@@ -45,56 +50,52 @@ type NavItem = {
 };
 
 // ---------------------------------------------------------------------------
-// Data — edit these to match your site
+// Data — sourced from config/site.ts to stay DRY
 // ---------------------------------------------------------------------------
 
-const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS: CommandNavItem[] = [
   { title: "Home", href: "/", icon: <HomeIcon /> },
   { title: "Blog", href: "/blog", icon: <BookOpenIcon /> },
-  { title: "Projects", href: "/projects", icon: <Folder />},
-  { title: "Resume", href: "/resume", icon: <File />}
+  { title: "Projects", href: "/projects", icon: <Folder /> },
+  { title: "Resume", href: "/resume", icon: <File /> },
 ];
 
-const SOCIAL_ITEMS: NavItem[] = [
+const SOCIAL_ITEMS: CommandNavItem[] = [
   {
     title: "GitHub",
-    href: "https://github.com/yourusername",
+    href: `https://github.com/${GITHUB_USERNAME}`,
     icon: <GithubIcon />,
     openInNewTab: true,
   },
   {
     title: "Twitter / X",
-    href: "https://twitter.com/yourusername",
+    href: `https://x.com/${X_USERNAME}`,
     icon: <TwitterIcon />,
     openInNewTab: true,
   },
   {
     title: "LinkedIn",
-    href: "https://linkedin.com/in/yourusername",
+    href: "https://linkedin.com/in/shubhamsingh-dev",
     icon: <LinkedinIcon />,
     openInNewTab: true,
   },
 ];
 
-const OTHER_ITEMS: NavItem[] = [
+const OTHER_ITEMS: CommandNavItem[] = [
   { title: "RSS Feed", href: "/rss", icon: <RssIcon />, openInNewTab: true },
   {
-    title: "llms.txt",
-    href: "/llms.txt",
+    title: "Source Code",
+    href: `https://github.com/${SOURCE_CODE_GITHUB_REPO}`,
     icon: <FileTextIcon />,
     openInNewTab: true,
   },
 ];
 
 // ---------------------------------------------------------------------------
-// Trigger button
+// Sub-components
 // ---------------------------------------------------------------------------
 
-function CommandMenuTrigger({
-  onClick,
-}: {
-  onClick: () => void;
-}) {
+function CommandMenuTrigger({ onClick }: { onClick: () => void }) {
   return (
     <Button
       variant="outline"
@@ -105,7 +106,7 @@ function CommandMenuTrigger({
     >
       <SearchIcon className="size-3.5" />
       <span className="text-sm/4 font-medium sm:hidden">Search…</span>
-      {/* Desktop kbd hint */}
+      {/* Desktop keyboard shortcut hint */}
       <span className="hidden items-center gap-0.5 sm:flex">
         <Kbd className="w-5 min-w-5">⌘</Kbd>
         <Kbd className="w-5 min-w-5">K</Kbd>
@@ -113,10 +114,6 @@ function CommandMenuTrigger({
     </Button>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Footer
-// ---------------------------------------------------------------------------
 
 function CommandMenuFooter() {
   return (
@@ -139,17 +136,13 @@ function CommandMenuFooter() {
   );
 }
 
-// ---------------------------------------------------------------------------
-// Nav item group — reusable
-// ---------------------------------------------------------------------------
-
 function NavGroup({
   heading,
   items,
   onSelect,
 }: {
   heading: string;
-  items: NavItem[];
+  items: CommandNavItem[];
   onSelect: (href: string, openInNewTab?: boolean) => void;
 }) {
   if (!items.length) return null;
@@ -172,16 +165,11 @@ function NavGroup({
 // Main component
 // ---------------------------------------------------------------------------
 
-export function CommandMenu({
-  enableHotkeys = false,
-}: {
-  enableHotkeys?: boolean;
-}) {
+export function CommandMenu({ enableHotkeys = false }: { enableHotkeys?: boolean }) {
   const router = useRouter();
   const { setTheme } = useTheme();
   const [open, setOpen] = useState(false);
 
-  // Keyboard shortcut to open/close
   useHotkeys(
     "mod+k",
     (e) => {
@@ -222,12 +210,7 @@ export function CommandMenu({
           <CommandEmpty>No results found.</CommandEmpty>
 
           <NavGroup heading="Menu" items={NAV_ITEMS} onSelect={handleSelect} />
-
-          <NavGroup
-            heading="Social"
-            items={SOCIAL_ITEMS}
-            onSelect={handleSelect}
-          />
+          <NavGroup heading="Social" items={SOCIAL_ITEMS} onSelect={handleSelect} />
 
           <CommandGroup heading="Theme">
             <CommandItem onSelect={() => handleTheme("light")}>

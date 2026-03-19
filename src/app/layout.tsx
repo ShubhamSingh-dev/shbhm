@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/common/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/common/navbar";
 import { SiteFooter } from "@/components/common/site-footer";
+import NoiseCursor from "@/components/common/cursor-noise";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,9 +48,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
+              <NoiseCursor />
               <Navbar />
               {children}
-              <SiteFooter/>
+              <SiteFooter />
             </TooltipProvider>
           </ThemeProvider>
         </body>

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { navbarConfig } from "@/config/Navbar";
+import { navbarConfig } from "@/config/navbar";
 import { Link } from "next-view-transitions";
 import Container from "./container";
 import { ThemeSwitch } from "./theme-switch";

@@ -1,16 +1,18 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
-const Container = ({
-  children,
-  className,
-  ...props
-}: {
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-}) => {
+}
+
+const Container = ({ children, className, ...props }: ContainerProps) => {
   return (
     <div
-      className={`animate-fade-in-blur container mx-auto max-w-3xl px-4 ${className}`}
+      className={cn(
+        "animate-fade-in-blur container mx-auto max-w-3xl px-4",
+        className
+      )}
       {...props}
     >
       {children}
