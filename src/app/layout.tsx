@@ -48,10 +48,24 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
+              {/*
+               * ── Structural Column Rails ──────────────────────────────────
+               * Two fixed vertical lines flanking the content column,
+               * extending the full page height (like kantrishi.com).
+               */}
+              <div className="pointer-events-none fixed inset-0 z-0 flex justify-center">
+                <div className="relative h-full w-full max-w-3xl">
+                  {/* Left rail */}
+                  <div className="absolute inset-y-0 left-0 w-px bg-border" />
+                  {/* Right rail */}
+                  <div className="absolute inset-y-0 right-0 w-px bg-border" />
+                </div>
+              </div>
+
               <NoiseCursor />
-              <Navbar />
-              {children}
-              <SiteFooter />
+              <div className="relative z-10"><Navbar /></div>
+              <div className="relative z-10">{children}</div>
+              <div className="relative z-10"><SiteFooter /></div>
             </TooltipProvider>
           </ThemeProvider>
         </body>

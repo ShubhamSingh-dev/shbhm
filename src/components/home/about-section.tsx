@@ -14,7 +14,7 @@ export function AboutSection() {
     >
       <SectionHead index="01" label="About" />
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-4 text-[0.9rem] leading-relaxed text-white/45">
+        <div className="space-y-4 text-[0.9rem] leading-relaxed text-muted-foreground">
           <p>
             I'm Shubham — a full stack engineer who believes great software is equal parts
             engineering precision and design intuition. I've shipped production systems that handle
@@ -34,10 +34,10 @@ export function AboutSection() {
           ].map(({ label, value }) => (
             <div
               key={label}
-              className="flex items-center justify-between border-b border-white/4 py-2.5"
+              className="flex items-center justify-between border-b border-border py-2.5"
             >
-              <span className="font-mono text-xs text-white/25">{label}</span>
-              <span className="text-sm text-white/60">{value}</span>
+              <span className="font-mono text-xs text-muted-foreground/80">{label}</span>
+              <span className="text-sm text-foreground/80">{value}</span>
             </div>
           ))}
         </div>

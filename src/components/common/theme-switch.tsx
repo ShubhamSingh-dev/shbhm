@@ -41,8 +41,8 @@ export function ThemeSwitch() {
           size="icon-sm"
           onClick={() => switchTheme()}
         >
-          <Moon className="relative hidden after:absolute after:-inset-2 [html.dark_&]:block" />
-          <Sun className="relative hidden after:absolute after:-inset-2 [html.light_&]:block" />
+          <Moon className="hidden dark:block" />
+          <Sun className="block dark:hidden" />
         </Button>
       </TooltipTrigger>
       <TooltipContent className="pr-2 pl-3">

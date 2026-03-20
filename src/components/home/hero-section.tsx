@@ -35,9 +35,8 @@ function ProfileCard() {
 
   return (
     <div className="flex flex-col items-center gap-2 shrink-0">
-      {/* The flipping card */}
       <div
-        className="relative h-[120px] w-[120px] cursor-pointer"
+        className="relative h-40 w-40 sm:h-48 sm:w-48 cursor-pointer"
         style={{ perspective: "800px" }}
         onClick={() => setFlipped((f) => !f)}
       >
@@ -49,7 +48,7 @@ function ProfileCard() {
         >
           {/* ── FRONT: Avatar ── */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden border border-white/10 bg-white/5"
+            className="absolute inset-0 rounded-xl overflow-hidden border border-foreground/10 bg-foreground/5 shadow-sm"
             style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -58,16 +57,14 @@ function ProfileCard() {
               alt="Shubham Singh"
               className="h-full w-full object-cover object-top"
             />
-            {/* QR hint badge */}
-            <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-lg border border-white/20 bg-black/75 px-1.5 py-1 text-white/60 backdrop-blur-sm">
-              <QrCode className="size-3.5" />
-              <span className="font-mono text-[8px] uppercase tracking-widest">qr</span>
+            <div className="absolute bottom-1.5 right-1.5 flex items-center gap-1 rounded-md border border-foreground/20 bg-background/75 px-1 py-0.5 text-foreground/80 backdrop-blur-sm">
+              <QrCode className="size-2.5" />
             </div>
           </div>
 
           {/* ── BACK: QR image ── */}
           <div
-            className="absolute inset-0 rounded-2xl overflow-hidden border border-white/10 bg-white flex items-center justify-center p-2"
+            className="absolute inset-0 rounded-xl overflow-hidden border border-foreground/10 bg-background flex items-center justify-center p-1.5 shadow-sm"
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
@@ -78,29 +75,29 @@ function ProfileCard() {
             <img
               src="/bmc_qr.png"
               alt="QR Code"
-              className="h-full w-full object-contain"
+              className="h-full w-full object-contain dark:invert"
             />
           </div>
         </motion.div>
       </div>
 
-      {/* Handle + verified badge — links to X */}
+      {/* Handle + verified badge */}
       <a
         href="https://x.com/shbhm_X0"
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex items-center gap-1 rounded-full border border-white/8 bg-white/[0.04] px-2.5 py-1 transition-all duration-200 hover:border-white/15 hover:bg-white/[0.08]"
+        className="group flex items-center gap-1 rounded-full border border-foreground/10 bg-foreground/5 px-4 py-1 transition-all duration-200 hover:border-foreground/20 hover:bg-foreground/10"
       >
-        <span className="font-mono text-[11px] text-white/50 transition-colors group-hover:text-white/80">
+        <span className="font-mono text-sm text-muted-foreground transition-colors group-hover:text-foreground">
           @shbhm_X0
         </span>
         <BlueTick className="size-3.5 shrink-0" />
       </a>
 
       {/* Flip hint */}
-      <div className="flex items-center gap-1 opacity-30">
-        <RotateCcw className="size-2.5 text-white/50" />
-        <span className="font-mono text-[8px] uppercase tracking-widest text-white/50">
+      <div className="flex items-center gap-1 opacity-40">
+        <RotateCcw className="size-2 text-foreground" />
+        <span className="font-mono text-[7px] uppercase tracking-widest text-foreground">
           {flipped ? "flip back" : "tap to flip"}
         </span>
       </div>
@@ -122,52 +119,52 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
   return (
     <motion.section
       style={{ opacity: heroOpacity, y: heroY }}
-      className="flex min-h-screen flex-col justify-center pb-16 pt-24"
+      className="relative flex min-h-screen flex-col justify-center pb-20 pt-24"
     >
       {/* Status badge */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 flex items-center gap-2.5"
+        className="mb-8 flex items-center gap-2.5"
       >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50 dark:opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-widest text-white/40">
+        <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
           Available for hire
         </span>
       </motion.div>
 
-      {/* Name + Profile Card side by side */}
+      {/* Name row — name left, card right, vertically centered */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-        className="flex items-end gap-6"
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 w-full"
       >
-        <h1 className="text-[clamp(3.5rem,10vw,7rem)] font-black leading-[0.9] tracking-tight text-white">
+        <h1 className="text-[clamp(2.5rem,7.5vw,5.5rem)] font-black leading-[0.9] tracking-tight text-foreground">
           Shubham
           <br />
-          <span className="text-white/20">Singh.</span>
+          <span className="text-muted-foreground/60">Singh.</span>
         </h1>
 
-        {/* Profile card — bottom-aligned with name */}
+        {/* Profile card — vertically centered with name block */}
         <ProfileCard />
       </motion.div>
 
-      {/* Role */}
+      {/* Role ticker */}
       <motion.div
         layout
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        className="mt-6 flex flex-wrap items-center font-mono text-sm uppercase tracking-widest text-white/35"
+        className="mt-6 flex flex-wrap items-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground"
       >
         <motion.span
           layout
-          className="relative flex h-5 items-center overflow-hidden pr-1 sm:pr-2"
+          className="relative flex h-5 items-center overflow-hidden pr-1 sm:pr-2 text-foreground/80 font-bold"
         >
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
@@ -201,7 +198,7 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-        className="mt-8 max-w-md text-base leading-relaxed text-white/45"
+        className="mt-7 max-w-sm text-[0.95rem] leading-relaxed text-muted-foreground"
       >
         I engineer products at the intersection of performance and craft. Obsessed with developer
         experience, clean systems, and the art of shipping things people actually use.
@@ -212,39 +209,39 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-        className="mt-10 flex items-center gap-4"
+        className="mt-9 flex items-center gap-5"
       >
         <Link
           href="/projects"
-          className="group relative overflow-hidden rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-medium text-white/80 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white"
+          className="group relative overflow-hidden rounded-full border border-border bg-foreground/5 shadow-sm px-6 py-2.5 text-sm font-medium text-foreground transition-all hover:border-foreground/20 hover:bg-foreground/10 hover:shadow-md"
         >
           View Work
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-0.5">
+          <span className="ml-1.5 inline-block transition-transform group-hover:translate-x-0.5">
             →
           </span>
         </Link>
         <Link
           href="/resume"
-          className="text-sm font-medium text-white/35 transition-colors hover:text-white/70"
+          className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           Resume ↗
         </Link>
       </motion.div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint — fixed position relative to section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-10 left-6"
+        className="absolute bottom-10 left-0"
       >
         <div className="flex flex-col items-center gap-2">
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="h-6 w-px bg-linear-to-b from-white/30 to-transparent"
+            className="h-6 w-px bg-linear-to-b from-foreground/30 to-transparent"
           />
-          <span className="origin-left translate-y-4 rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-white/20">
+          <span className="origin-left translate-y-4 rotate-90 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/60">
             scroll
           </span>
         </div>
