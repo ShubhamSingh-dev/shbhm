@@ -4,7 +4,7 @@ import { GITHUB_USERNAME, X_USERNAME } from "@/config/site";
 export type SocialLink = {
   name: string;
   href: string;
-  icon: React.ComponentType<{ size?: number }>;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
 };
 
 export const SOCIAL_LINKS: SocialLink[] = [
