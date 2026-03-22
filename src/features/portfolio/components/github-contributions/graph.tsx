@@ -1,4 +1,5 @@
-import type { Activity } from "@/components/kibo-ui/contribution-graph";
+"use client";
+
 import {
   ContributionGraph,
   ContributionGraphBlock,
@@ -6,37 +7,34 @@ import {
   ContributionGraphFooter,
   ContributionGraphLegend,
   ContributionGraphTotalCount,
+  type Activity,
 } from "@/components/kibo-ui/contribution-graph";
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
 import { GITHUB_USERNAME, UTM_PARAMS } from "@/config/site";
 import { addQueryParams } from "@/utils/url";
 import { format } from "date-fns";
 import { LoaderIcon } from "lucide-react";
-import { use } from "react";
 
 export function GithubContributionsGraph({
   contributions,
 }: {
-  contributions: Promise<Activity[]>;
+  contributions: Activity[];
 }) {
-  const data = use(contributions);
-  
   return (
     <ContributionGraph
       className="mx-auto py-2"
-      data={data}
+      data={contributions}
       blockSize={11}
       blockMargin={3}
       blockRadius={2}
     >
-      <ContributionGraphCalendar
-        className="no-scrollbar px-2"
-        title="Github Contributions"
-      >
+      <ContributionGraphCalendar className="no-scrollbar px-2">
         {({ activity, dayIndex, weekIndex }) => (
           <Tooltip>
             <TooltipTrigger asChild>
@@ -45,17 +43,19 @@ export function GithubContributionsGraph({
                 dayIndex={dayIndex}
                 weekIndex={weekIndex}
               />
-              <TooltipContent className="font-sans">
-                <p>
-                  {activity.count} contribution
-                  {activity.count > 1 ? "s" : null} on{" "}
-                  {format(new Date(activity.date), "dd.MM.yyyy")}
-                </p>
-              </TooltipContent>
             </TooltipTrigger>
+
+            <TooltipContent className="font-sans">
+              <p>
+                {activity.count} contribution
+                {activity.count !== 1 ? "s" : ""} on{" "}
+                {format(new Date(activity.date), "dd MMM yyyy")}
+              </p>
+            </TooltipContent>
           </Tooltip>
         )}
       </ContributionGraphCalendar>
+
       <ContributionGraphFooter className="px-2">
         <ContributionGraphTotalCount>
           {({ totalCount, year }) => (
@@ -65,10 +65,10 @@ export function GithubContributionsGraph({
                 className="font-medium underline underline-offset-4"
                 href={addQueryParams(
                   `https://github.com/${GITHUB_USERNAME}`,
-                  UTM_PARAMS
+                  UTM_PARAMS,
                 )}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 GitHub
               </a>
@@ -85,10 +85,8 @@ export function GithubContributionsGraph({
 
 export function GithubContributionsFallback() {
   return (
-    <>
-      <div className="flex h-40.5 w-full items-center justify-center">
-        <LoaderIcon className="animate-spin text-muted-foreground" />
-      </div>
-    </>
+    <div className="flex h-40.5 w-full items-center justify-center">
+      <LoaderIcon className="animate-spin text-muted-foreground" />
+    </div>
   );
 }
