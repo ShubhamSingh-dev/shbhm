@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import { SectionHead } from "@/components/common/section-head";
 
 export function AboutSection() {
   return (
@@ -10,9 +9,8 @@ export function AboutSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="py-20"
+      className="relative mx-auto w-full max-w-3xl px-6 sm:px-8 md:px-10 py-20"
     >
-      <SectionHead index="01" label="About" />
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-4 text-[0.9rem] leading-relaxed text-muted-foreground">
           <p>

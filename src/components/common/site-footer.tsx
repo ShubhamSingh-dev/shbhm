@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { SOCIAL_LINKS } from "@/config/site";
-import { SectionHead } from "@/components/common/section-head";
 
 export function SiteFooter() {
   return (
@@ -11,10 +10,8 @@ export function SiteFooter() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="py-20 mx-auto max-w-3xl px-6 relative z-10"
+      className="relative z-10 mx-auto w-full max-w-3xl px-6 sm:px-8 md:px-10 py-20"
     >
-      <SectionHead index="02" label="Contact" />
-
       {/* Label */}
       <motion.p
         initial={{ opacity: 0, y: 10 }}
@@ -31,10 +28,7 @@ export function SiteFooter() {
         {/* Decorative vertical line */}
         <div className="absolute -left-6 top-1/2 -translate-y-1/2 h-full w-px bg-linear-to-b from-transparent via-border to-transparent hidden sm:block" />
 
-        <a
-          href="mailto:mine.shubhamsingh@gmail.com"
-          className="group block"
-        >
+        <a href="mailto:mine.shubhamsingh@gmail.com" className="group block">
           <div className="space-y-1">
             <div className="flex items-baseline gap-3 flex-wrap">
               <span

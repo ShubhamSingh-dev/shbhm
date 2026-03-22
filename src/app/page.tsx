@@ -5,6 +5,8 @@ import { useScroll, useTransform } from "motion/react";
 
 import { HeroSection } from "@/components/home/hero-section";
 import { AboutSection } from "@/components/home/about-section";
+import SectionDivider from "@/components/common/section-divider";
+import { GithubContributions } from "@/features/portfolio/components/github-contributions";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,12 +23,11 @@ export default function Home() {
       <div className="pointer-events-none fixed inset-0 z-10 opacity-[0.03] bg-noise" />
 
       <main className="relative z-20 mx-auto max-w-3xl">
-        <div className="px-6">
-          <HeroSection heroOpacity={heroOpacity} heroY={heroY} />
-        </div>
-        <div className="px-6">
-          <AboutSection />
-        </div>
+        <HeroSection heroOpacity={heroOpacity} heroY={heroY} />
+        <SectionDivider index="01" label="About" />
+        <AboutSection />
+        <SectionDivider index="02" label="Contact" />
+        <GithubContributions/>
       </main>
     </div>
   );
