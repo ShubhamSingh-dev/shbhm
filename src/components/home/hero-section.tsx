@@ -65,6 +65,28 @@ function RoleTicker() {
   );
 }
 
+function LocalTime() {
+  const [time, setTime] = useState("UTC+5:30");
+
+  useEffect(() => {
+    const tick = () => {
+      setTime(
+        new Date().toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        }),
+      );
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <span className="tabular-nums">{time}</span>;
+}
+
 interface HeroSectionProps {
   heroOpacity: MotionValue<number>;
   heroY: MotionValue<number>;
@@ -133,7 +155,7 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
       >
         <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           <MapPin className="size-2.5" />
-          India · UTC+5:30
+          India · <LocalTime />
         </span>
         <span className="text-border/60 hidden sm:block">·</span>
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
