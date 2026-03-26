@@ -1,48 +1,64 @@
 import { Suspense } from "react";
 import { navbarConfig } from "@/config/navbar";
 import { Link } from "next-view-transitions";
-import Container from "./container";
 import { ThemeSwitch } from "./theme-switch";
 import { CommandMenu } from "./command-menu";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { NavItemGitHub } from "./nav-item-github";
 
+/**
+ * Navbar
+ *
+ * Sticky top bar. Uses px-4 max-w-3xl to align perfectly with the
+ * GridOverlay rails. The left/right borders connect to the vertical rails.
+ * backdrop-blur keeps it readable over page content on scroll.
+ */
 const Navbar = () => {
   return (
-    <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6">
-        {/* Left: Logo + Nav links */}
-        <div className="flex items-center gap-6">
-          <Link href="/">
-            <span className="font-pixel text-lg leading-none">S</span>
-          </Link>
-        </div>
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
+      <div className="border-line mx-auto flex h-14 w-full max-w-3xl items-center justify-between px-4">
+        {/* Logo */}
+        <Link href="/" aria-label="Home">
+          <span className="font-pixel text-base leading-none tracking-tight">
+            S
+          </span>
+        </Link>
 
-        {/* Right: Actions */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-4">
+        {/* Right: nav links + actions */}
+        <div className="flex items-center gap-1">
+          {/* Nav links — hidden on mobile, shown sm+ */}
+          <nav className="hidden items-center gap-1 sm:flex">
             {navbarConfig.navItems.map((item) => (
               <Link
-                className="text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
                 key={item.label}
                 href={item.href}
+                className="rounded-md px-3 py-1.5 font-mono text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
               >
                 {item.label}
               </Link>
             ))}
-          </div>
+          </nav>
+
+          <Separator
+            orientation="vertical"
+            className="mx-1 hidden h-4 self-center sm:block data-[orientation=vertical]:h-4"
+          />
+
           <CommandMenu enableHotkeys />
+
           <Suspense fallback={null}>
             <NavItemGitHub />
           </Suspense>
+
           <Separator
             orientation="vertical"
-            className="mx-1 data-[orientation=vertical]:h-4 data-[orientation=vertical]:self-center"
+            className="mx-1 h-4 self-center data-[orientation=vertical]:h-4"
           />
+
           <ThemeSwitch />
         </div>
       </div>
-    </Container>
+    </header>
   );
 };
 

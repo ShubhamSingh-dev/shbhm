@@ -6,11 +6,18 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
+/**
+ * Container
+ *
+ * Centered content column, max-w-3xl, px-4.
+ * The px-4 padding matches GridOverlay's rail positions exactly,
+ * so section borders and dividers connect cleanly to the vertical rails.
+ */
 const Container = ({ children, className, ...props }: ContainerProps) => {
   return (
     <div
       className={cn(
-        "animate-fade-in-blur container mx-auto max-w-3xl px-4",
+        "mx-auto w-full max-w-3xl px-4",
         className
       )}
       {...props}

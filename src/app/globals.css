@@ -122,16 +122,25 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    /* Use sans (Geist) as default — monospace only for code/labels */
+    @apply bg-background text-foreground font-mono antialiased;
   }
-  html {
-    @apply font-mono;
+  /* Monospace applies to code elements and utility class only */
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
   }
 }
+
 @layer utilities {
+  /* ── Noise texture overlay ─────────────────────────────────────────────── */
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+
+  /* ── Diagonal hatch fill ───────────────────────────────────────────────── */
   .bg-hatch {
     background-image: repeating-linear-gradient(
       -45deg,
@@ -140,5 +149,62 @@
       transparent 1px,
       transparent 6px
     );
+  }
+
+  /* ── Grid rail utilities ───────────────────────────────────────────────────
+     screen-line-top / screen-line-bottom use pseudo-elements that span the
+     full viewport width (200vw, starting at -100vw) so horizontal lines
+     extend seamlessly through the vertical rails on both sides.
+     This is the exact technique used by chanhdai.com.
+  ──────────────────────────────────────────────────────────────────────── */
+  .screen-line-top {
+    position: relative;
+  }
+  .screen-line-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    width: 200vw;
+    height: 1px;
+    background-color: var(--border);
+    z-index: -1;
+  }
+
+  .screen-line-bottom {
+    position: relative;
+  }
+  .screen-line-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100vw;
+    width: 200vw;
+    height: 1px;
+    background-color: var(--border);
+    z-index: -1;
+  }
+
+  /* Left + right borders matching the vertical rail positions */
+  .border-line {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  /* ── Page-load fade-in animation ──────────────────────────────────────── */
+  @keyframes fade-in-blur {
+    from {
+      opacity: 0;
+      filter: blur(3px);
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-blur {
+    animation: fade-in-blur 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 }

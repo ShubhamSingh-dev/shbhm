@@ -1,9 +1,10 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// SECTION DIVIDER
-// Use this between every section instead of SectionHead.
-// Creates horizontal lines that "connect" to the vertical rails,
-// giving the full chanhdai-style grid feel across the whole page.
-// ─────────────────────────────────────────────────────────────────────────────
+/**
+ * SectionDivider
+ *
+ * Horizontal rule between sections. Uses border-line (left+right borders)
+ * matching the GridOverlay rails, and screen-line-top so the horizontal
+ * rule extends across the full viewport via the ::before pseudo-element.
+ */
 export default function SectionDivider({
   index,
   label,
@@ -12,20 +13,21 @@ export default function SectionDivider({
   label?: string;
 }) {
   return (
-    <div className="relative my-0 flex items-center" aria-hidden="true">
-      {/* Left tick — extends out to touch the rail */}
-      <div className="absolute -left-6 top-1/2 h-px w-6 -translate-y-1/2 bg-border/60" />
-      <div className="h-px flex-1 bg-border/60" />
+    <div
+      className="border-line screen-line-top relative flex items-center py-2 px-4"
+      aria-hidden="true"
+    >
+      <div className="h-px flex-1 bg-border/40" />
+
       {(index || label) && (
-        <span className="mx-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.4em] text-muted-foreground/40 select-none">
+        <span className="mx-3 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.35em] text-muted-foreground/40 select-none">
           {index && <span>{index}</span>}
           {index && label && <span className="opacity-30">·</span>}
           {label && <span>{label}</span>}
         </span>
       )}
-      <div className="h-px flex-1 bg-border/60" />
-      {/* Right tick */}
-      <div className="absolute -right-6 top-1/2 h-px w-6 -translate-y-1/2 bg-border/60" />
+
+      <div className="h-px flex-1 bg-border/40" />
     </div>
   );
 }

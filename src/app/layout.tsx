@@ -13,17 +13,20 @@ import GridOverlay from "@/components/common/grid-overlay";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-press-start-2p",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +44,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body
           suppressHydrationWarning
-          className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} font-mono antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable}`}
         >
           <ThemeProvider
             attribute="class"
@@ -51,12 +54,14 @@ export default function RootLayout({
           >
             <TooltipProvider>
               <GridOverlay />
+              <div
+                className="pointer-events-none fixed inset-0 z-10 opacity-[0.025] bg-noise"
+                aria-hidden="true"
+              />
               <NoiseCursor />
-              <div className="relative z-10">
+              <div className="relative z-20 flex min-h-screen flex-col">
                 <Navbar />
-              </div>
-              <div className="relative z-10">{children}</div>
-              <div className="relative z-10">
+                <main className="flex-1">{children}</main>
                 <SiteFooter />
               </div>
             </TooltipProvider>

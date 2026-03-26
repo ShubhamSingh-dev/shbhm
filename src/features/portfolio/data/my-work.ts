@@ -2,45 +2,81 @@ import type { MyWork } from "../types/my-work"
 
 export const MYWORK: MyWork[] = [
   {
-    id: "winterfell",
-    name: "Winterfell",
-    tagline: "Lovable for Anchor smart contracts",
-    icon: "ai",
-    githubUrl: "https://github.com/bottle-nex/winterfell",
-    websiteUrl: "https://winterfell.celestium.xyz/",
+    id: "nirvado",
+    name: "Nirvado",
+    tagline: "A zero-setup browser IDE powered by AI",
+    icon: "code",
+    githubUrl: "https://github.com/ShubhamSingh-dev/Nirvado",
+    websiteUrl: "https://nirvado.vercel.app/",
     isFeatured: true,
     details: [
       {
         id: "1",
-        title: "Learn more",
-        icon: "ai",
+        title: "What makes it special",
+        icon: "code",
         description:
-          "- Built an interactive dashboard for sending prompts to an LLM backend and visualizing real-time responses.\n- Created a futuristic landing and playground interface, combining high-performance React components with modern design.\n- Developed a parser and extractor system to display the LLM's live reasoning process in an intuitive UI.\n- Designed a custom Kubernetes-based E2B environment to securely run Anchor build, deploy, and test commands in isolated containers.",
-        skills: ["React", "TypeScript", "Kubernetes", "Anchor", "LLMs", "E2B"],
+          "- Built a fully in-browser IDE using WebContainers, enabling real Node.js execution without local setup — achieving sub-100ms I/O performance.\n- Designed a multi-framework playground supporting React, Next.js, Vue, Express, Hono, and Angular, making it a true all-in-one dev environment.\n- Integrated Gemini AI directly into Monaco Editor for inline code completions — reducing developer effort and speeding up coding workflows significantly.\n- Engineered secure authentication with NextAuth (Google + GitHub) and implemented a persistent file system using PostgreSQL with a structured multi-table schema.\n- Focused on developer experience: instant boot, seamless editing, and persistent sessions across devices.",
+        skills: [
+          "Next.js 15",
+          "TypeScript",
+          "WebContainers",
+          "Monaco Editor",
+          "PostgreSQL",
+          "NextAuth",
+          "Gemini API",
+        ],
         isExpanded: true,
       },
     ],
   },
+
   {
-    id: "nocturn",
-    name: "Nocturn",
-    tagline: "The quiz app but with pump.fun energy",
-    icon: "blockchain",
-    githubUrl: "https://github.com/celestium-x/nocturn",
-    websiteUrl: "https://nocturn.celestium.xyz/",
+    id: "apilab",
+    name: "ApiLab",
+    tagline: "AI-powered Postman, but actually smart",
+    icon: "ai",
+    githubUrl: "https://github.com/ShubhamSingh-dev/ApiLab",
+    websiteUrl: "https://api-lab-two.vercel.app/",
     details: [
       {
         id: "1",
         title: "What I built",
-        icon: "blockchain",
+        icon: "ai",
         description:
-          "- Building a blockchain-powered quiz platform inspired by pump.fun, combining gamification with on-chain rewards.\n- Built clean, user-friendly UI pages optimized for fast gameplay and smooth interactions.\n- Developed a WebSocket system with Redis Pub/Sub for horizontally scaled real-time communication between hosts, participants, and spectators.\n- Designed a microservices-based architecture with an orchestrator worker to handle question transitions and ensure fault tolerance.\n- Currently developing smart contracts enabling players to earn and trade rewards securely on-chain.",
+          "- Created an AI-first API testing platform that auto-generates request names and organizes collections, removing repetitive manual setup.\n- Built support for 10+ request configurations including headers, auth, query params, and body editors — delivering a complete Postman-like experience.\n- Optimized performance to achieve sub-200ms response handling across API requests.\n- Containerized the entire backend using Docker + PostgreSQL, reducing developer onboarding time to under 2 minutes.\n- Designed for real-world developer workflows with speed, automation, and clean UX at its core.",
         skills: [
           "Next.js",
-          "WebSockets",
-          "Redis",
-          "Microservices",
-          "Smart Contracts",
+          "TypeScript",
+          "PostgreSQL",
+          "Docker",
+          "REST APIs",
+          "Gemini API",
+        ],
+        isExpanded: false,
+      },
+    ],
+  },
+
+  {
+    id: "tellgit",
+    name: "TellGit",
+    tagline: "Understand your GitHub habits, not just your commits",
+    icon: "fullstack",
+    githubUrl: "https://github.com/ShubhamSingh-dev/TellGit",
+    websiteUrl: "https://tell-git.vercel.app/",
+    details: [
+      {
+        id: "1",
+        title: "Core idea",
+        icon: "fullstack",
+        description:
+          "- Built a GitHub analytics platform that aggregates and structures activity across 100+ repositories per user.\n- Helps developers uncover contribution patterns, consistency gaps, and productivity insights.\n- Engineered a fully type-safe backend using tRPC + Prisma, eliminating traditional REST overhead and runtime type mismatches.\n- Integrated authentication with NextAuth and built a scalable data pipeline for processing large GitHub datasets efficiently.\n- Focused on turning raw contribution data into meaningful, actionable insights.",
+        skills: [
+          "Next.js",
+          "tRPC",
+          "Prisma",
+          "PostgreSQL",
+          "NextAuth",
           "TypeScript",
         ],
         isExpanded: false,

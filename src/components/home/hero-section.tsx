@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, MotionValue } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Link } from "next-view-transitions";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import FlipCard from "../common/flip-card";
 
 const ROLES = ["Full Stack Engineer", "AI Engineer", "Systems Builder"];
-const TECH_TAGS = ["TypeScript", "Next.js", "Rust", "Go", "React", "Node.js"];
 
 function LiveClock() {
   const [time, setTime] = useState("");
@@ -87,27 +86,19 @@ function LocalTime() {
   return <span className="tabular-nums">{time}</span>;
 }
 
-interface HeroSectionProps {
-  heroOpacity: MotionValue<number>;
-  heroY: MotionValue<number>;
-}
-
-export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
+export function HeroSection() {
   return (
-    <motion.section
-      style={{ opacity: heroOpacity, y: heroY }}
-      className="relative mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center px-6 sm:px-8 md:px-10 pb-20 pt-24"
-    >
+    <section className="border-line screen-line-bottom mx-auto w-full max-w-3xl px-4 pb-16 pt-12 sm:pt-16">
       {/* ── Status + clock row ── */}
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 flex items-center justify-between "
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-10 flex items-center justify-between"
       >
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50 dark:opacity-70" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-50" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
           </span>
           <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
@@ -119,49 +110,49 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
 
       {/* ── Name + Card row ── */}
       <motion.div
-        initial={{ opacity: 0, y: 22 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
         className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between"
       >
         {/* Name block */}
         <div className="flex flex-col gap-4">
           <h1
-            className="font-black leading-[0.88] tracking-tight text-foreground"
-            style={{ fontSize: "clamp(2.75rem, 9vw, 5.5rem)" }}
+            className="font-sans font-black leading-[0.88] tracking-tight text-foreground"
+            style={{ fontSize: "clamp(2.5rem, 9vw, 5rem)" }}
           >
             Shubham
             <br />
-            <span className="text-muted-foreground/50">Singh.</span>
+            <span className="text-muted-foreground/40">Singh.</span>
           </h1>
 
-          {/* Role ticker with dash prefix */}
+          {/* Role ticker */}
           <div className="flex items-center gap-2.5">
-            <div className="h-px w-5 bg-foreground/25" />
+            <div className="h-px w-5 bg-foreground/20" />
             <RoleTicker />
           </div>
         </div>
 
-        {/* Flip card — right side */}
+        {/* Flip card */}
         <FlipCard />
       </motion.div>
 
       {/* ── Location / meta chips ── */}
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
-        className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2"
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+        className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2"
       >
         <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           <MapPin className="size-2.5" />
           India · <LocalTime />
         </span>
-        <span className="text-border/60 hidden sm:block">·</span>
+        <span className="hidden text-border/60 sm:block">·</span>
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           B.Tech CS
         </span>
-        <span className="text-border/60 hidden sm:block">·</span>
+        <span className="hidden text-border/60 sm:block">·</span>
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           Full Stack &amp; Systems
         </span>
@@ -169,10 +160,10 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
 
       {/* ── Bio ── */}
       <motion.p
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.16 }}
-        className="mt-6 max-w-3xl text-[0.925rem] leading-[1.78] text-muted-foreground"
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.16 }}
+        className="mt-5 max-w-lg text-sm leading-[1.75] text-muted-foreground sm:text-[0.9375rem]"
       >
         I engineer products at the intersection of performance and craft.
         Obsessed with developer experience, clean systems, and the art of
@@ -181,21 +172,19 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
 
       {/* ── CTA buttons ── */}
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.26 }}
-        className="mt-10 flex items-center gap-5"
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: 0.24 }}
+        className="mt-8 flex items-center gap-5"
       >
-        {/* Primary CTA */}
         <Link
           href="/projects"
-          className="group inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-all hover:bg-foreground/85 active:scale-[0.98]"
+          className="group inline-flex items-center gap-2 rounded-full border border-foreground bg-foreground px-5 py-2 text-sm font-medium text-background transition-all hover:bg-foreground/85 active:scale-[0.98]"
         >
           View Work
           <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
 
-        {/* Secondary CTA */}
         <Link
           href="/resume"
           className="group inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -204,23 +193,6 @@ export function HeroSection({ heroOpacity, heroY }: HeroSectionProps) {
           <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </motion.div>
-
-      {/* ── Scroll indicator ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-10 left-0 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          className="h-7 w-px bg-linear-to-b from-foreground/25 to-transparent"
-        />
-        <span className="origin-left translate-y-4 rotate-90 font-mono text-[8px] uppercase tracking-[0.45em] text-muted-foreground/40">
-          scroll
-        </span>
-      </motion.div>
-    </motion.section>
+    </section>
   );
 }

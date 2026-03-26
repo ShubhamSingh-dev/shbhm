@@ -8,17 +8,21 @@ import { MyWork } from "@/features/portfolio/components/my-work";
 export default function Home() {
   return (
     <HomeScrollContainer>
-      <SectionDivider index="01" label="About" />
-      <AboutSection />
-      
-      <SectionDivider index="02" label="My Work" />
-      <MyWork />
-      
-      <SectionDivider index="03" label="Contributions" />
-      <GithubContributions />
+      {/* Single max-w-3xl wrapper — same width used by Panel and GridOverlay rails */}
+      <div className="mx-auto w-full max-w-3xl">
+        <SectionDivider index="01" label="About" />
+        <AboutSection />
+        <GithubContributions />
 
-      <SectionDivider index="04" label="Stack" />
-      <TechStack />
+        <SectionDivider index="02" label="Stack" />
+        <TechStack />
+
+        <SectionDivider index="03" label="My Work" />
+        <MyWork />
+        
+
+        
+      </div>
     </HomeScrollContainer>
   );
 }

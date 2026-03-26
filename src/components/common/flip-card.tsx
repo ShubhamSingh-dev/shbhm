@@ -1,19 +1,30 @@
+"use client";
+
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { QrCode, RotateCcw } from "lucide-react";
 import BlueTick from "../icons/blue-tick";
 
+/**
+ * FlipCard
+ *
+ * Fixed: h-37 and w-37 are not valid Tailwind classes (v3 or v4).
+ * Replaced with explicit h-[148px] w-[148px] (148 = 37 × 4).
+ */
 export default function FlipCard() {
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-2.5 shrink-0">
+    <div className="flex shrink-0 flex-col items-center gap-2.5">
+      {/* Card container */}
       <div
-        className="relative h-37 w-37 cursor-pointer select-none"
+        className="relative h-[148px] w-[148px] cursor-pointer select-none"
         style={{ perspective: "900px" }}
         onClick={() => setFlipped((f) => !f)}
         role="button"
-        aria-label="Flip card"
+        aria-label={flipped ? "Flip card back" : "Flip card"}
+        tabIndex={0}
+        onKeyDown={(e) => e.key === "Enter" && setFlipped((f) => !f)}
       >
         <motion.div
           animate={{ rotateY: flipped ? 180 : 0 }}
@@ -38,9 +49,9 @@ export default function FlipCard() {
             </div>
           </div>
 
-          {/* Back — QR */}
+          {/* Back — QR code */}
           <div
-            className="absolute inset-0 overflow-hidden rounded-2xl border border-foreground/10 bg-background flex items-center justify-center p-2"
+            className="absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl border border-foreground/10 bg-background p-2"
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
@@ -50,14 +61,14 @@ export default function FlipCard() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/bmc_qr.png"
-              alt="QR Code"
+              alt="Buy me a coffee QR code"
               className="h-full w-full object-contain dark:invert"
             />
           </div>
         </motion.div>
       </div>
 
-      {/* Twitter handle */}
+      {/* Twitter / X handle */}
       <a
         href="https://x.com/shbhm_X0"
         target="_blank"
@@ -70,8 +81,8 @@ export default function FlipCard() {
         <BlueTick className="size-3 shrink-0" />
       </a>
 
-      {/* Flip cue */}
-      <div className="flex items-center gap-1 opacity-35">
+      {/* Flip hint */}
+      <div className="flex items-center gap-1 opacity-30">
         <RotateCcw className="size-[9px] text-foreground" />
         <span className="font-mono text-[7px] uppercase tracking-widest text-foreground">
           {flipped ? "flip back" : "tap to flip"}

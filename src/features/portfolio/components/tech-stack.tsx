@@ -36,16 +36,16 @@ export function TechStack() {
                       <Image
                         src={icons.light}
                         alt={`${tech.title} icon`}
-                        width={32}
-                        height={32}
+                        width={36}
+                        height={36}
                         className="dark:hidden block"
                         unoptimized
                       />
                       <Image
                         src={icons.dark}
                         alt={`${tech.title} icon`}
-                        width={32}
-                        height={32}
+                        width={36}
+                        height={36}
                         className="hidden dark:block"
                         unoptimized
                       />
