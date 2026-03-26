@@ -100,7 +100,7 @@ export function MyWorkDetailItem({ detail }: { detail: MyWorkDetail }) {
                 {detail.skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center rounded border border-border/60 bg-muted/50 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground"
+                    className="inline-flex items-center rounded border border-border/60 bg-muted/50 px-2 py-1 font-mono text-[11px] text-muted-foreground"
                   >
                     {skill}
                   </span>
