@@ -9,6 +9,7 @@ import Navbar from "@/components/common/navbar";
 import { SiteFooter } from "@/components/common/site-footer";
 import NoiseCursor from "@/components/common/cursor-noise";
 import GridOverlay from "@/components/common/grid-overlay";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,6 +67,7 @@ export default function RootLayout({
               </div>
             </TooltipProvider>
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </ViewTransitions>

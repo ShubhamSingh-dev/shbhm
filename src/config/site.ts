@@ -11,7 +11,9 @@ export const UTM_PARAMS = {
 
 export const SOCIAL_LINKS = [
   { label: "GitHub", href: `https://github.com/${GITHUB_USERNAME}`, symbol: "GH" },
-  { label: "Twitter", href: `https://x.com/${X_USERNAME}`, symbol: "TW" },
   { label: "LinkedIn", href: "https://linkedin.com/in/shubhamsingh-dev", symbol: "LI" },
-  { label: "Email", href: "mailto:hi@shbhm.com", symbol: "ML" },
+  { label: "X", href: `https://x.com/${X_USERNAME}`, symbol: "TW" },
+  { label: "Email", href: "mailto:mine.shubhamsingh@gmail.com", symbol: "ML" },
+  { label: "Dev Community", href: "https://dev.to/shubham_dev", symbol: "DV" },
+  { label: "LeetCode", href: "https://leetcode.com/u/shubhamsingh_dev", symbol: "LC" },
 ];

@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
+import React from "react";
 import { SOCIAL_LINKS } from "@/config/site";
+import { VisitorCounter } from "../vistor-count";
 
 export function SiteFooter() {
   return (
@@ -10,7 +12,7 @@ export function SiteFooter() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      className="mx-auto w-full max-w-3xl border-line screen-line-top px-4 py-16"
+      className="mx-auto w-full max-w-3xl border-line screen-line-top px-4 py-8"
     >
       {/* Label */}
       <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
@@ -80,17 +82,24 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom meta row */}
-      <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 sm:flex-row sm:items-center">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-[9px] text-muted-foreground">📍</span>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-            India — IST (UTC+5:30)
+      <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 sm:flex-row sm:items-baseline">
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-foreground/80">
+            Designed & Developed by Shubham
+          </span>
+          <span className="font-mono text-[10px] text-muted-foreground/50">
+            © 2026. All rights reserved.
           </span>
         </div>
-        <span className="font-mono text-[10px] text-muted-foreground">
-          © {new Date().getFullYear()} Shubham Singh · Built with Next.js
-        </span>
+        
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">
+            Total Visitors
+          </span>
+          <VisitorCounter />
+        </div>
       </div>
     </motion.footer>
   );
 }
+
