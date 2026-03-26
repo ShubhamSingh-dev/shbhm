@@ -42,7 +42,7 @@ export function SiteFooter() {
           </div>
 
           {/* Animated underline */}
-          <div className="h-px w-0 bg-gradient-to-r from-foreground/60 to-transparent transition-all duration-500 ease-out group-hover:w-full" />
+          <div className="h-px w-0 bg-linear-to-r from-foreground/60 to-transparent transition-all duration-500 ease-out group-hover:w-full" />
         </div>
 
         {/* Arrow cue */}
