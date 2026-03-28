@@ -9,7 +9,7 @@ export async function GET() {
 
   const isNew = await redis.set(key, "1", {
     nx: true,
-    ex: 60 * 60,
+    ex: 60 * 60 * 24,
   });
 
   if (isNew) {

@@ -83,4 +83,30 @@ export const MYWORK: MyWork[] = [
       },
     ],
   },
+  {
+    id: "notiq",
+    name: "Notiq",
+    tagline: "AI-powered note-making app, but with a twist",
+    icon: "ai",
+    githubUrl: "https://github.com/ShubhamSingh-dev/AI-note-making",
+    websiteUrl: "https://notiq-eight.vercel.app/",
+    details: [
+      {
+        id: "1",
+        title: "What I built",
+        icon: "ai",
+        description: "- Built a note-making app that uses AI to help you take notes. It has a simple and clean interface, and it is very easy to use. It uses Groq API to generate notes, and it is very fast and efficient. It uses PostgreSQL to store notes, and it is very secure and reliable.",
+        skills: [
+          "React",
+          "Node.js",
+          "Express",
+          "TypeScript",
+          "PostgreSQL",
+          "REST APIs",
+          "Groq API",
+        ],
+        isExpanded: false,
+      },
+    ],
+  }
 ]
