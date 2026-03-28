@@ -5,7 +5,7 @@ export interface NavItem {
 
 export const navbarConfig = {
   navItems: [
-    { label: "Work", href: "/work-experience" },
+    { label: "Home", href: "/" },
     { label: "Blogs", href: "/blog" },
     { label: "Projects", href: "/projects" },
     { label: "Resume", href: "/resume" },
