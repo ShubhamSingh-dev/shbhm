@@ -4,7 +4,7 @@ export const MYWORK: MyWork[] = [
   {
     id: "nirvado",
     name: "Nirvado",
-    tagline: "A zero-setup browser IDE powered by AI",
+    tagline: "Browser IDE using WebContainers — real Node.js, zero install, built in 3 weeks",
     icon: "code",
     githubUrl: "https://github.com/ShubhamSingh-dev/Nirvado",
     websiteUrl: "https://nirvado.vercel.app/",
@@ -33,7 +33,7 @@ export const MYWORK: MyWork[] = [
   {
     id: "apilab",
     name: "ApiLab",
-    tagline: "AI-powered Postman, but actually smart",
+    tagline: "API testing tool with AI-generated request names — Docker + PostgreSQL, sub-200ms",
     icon: "ai",
     githubUrl: "https://github.com/ShubhamSingh-dev/ApiLab",
     websiteUrl: "https://api-lab-two.vercel.app/",
@@ -60,7 +60,7 @@ export const MYWORK: MyWork[] = [
   {
     id: "tellgit",
     name: "TellGit",
-    tagline: "Understand your GitHub habits, not just your commits",
+    tagline: "GitHub analytics across 100+ repos — tRPC + Prisma, fully type-safe end to end",
     icon: "fullstack",
     githubUrl: "https://github.com/ShubhamSingh-dev/TellGit",
     websiteUrl: "https://tell-git.vercel.app/",
@@ -86,7 +86,7 @@ export const MYWORK: MyWork[] = [
   {
     id: "notiq",
     name: "Notiq",
-    tagline: "AI-powered note-making app, but with a twist",
+    tagline: "Note app with Groq-powered AI generation — React + Express + PostgreSQL",
     icon: "ai",
     githubUrl: "https://github.com/ShubhamSingh-dev/AI-note-making",
     websiteUrl: "https://notiq-eight.vercel.app/",

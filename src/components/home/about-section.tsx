@@ -15,25 +15,27 @@ export function AboutSection() {
         {/* Bio paragraphs */}
         <div className="space-y-4 text-sm leading-[1.75] text-muted-foreground">
           <p>
-            I'm Shubham — a full stack engineer who believes great software is
-            equal parts engineering precision and design intuition. I've shipped
-            production systems that handle millions of requests and side
-            projects that delight a handful of friends equally.
+            I&apos;m Shubham — a 2nd year B.Tech CS student and full stack
+            engineer who believes great software is equal parts engineering
+            precision and design intuition. I&apos;ve shipped production systems
+            that handle real workloads and side projects that delight a handful
+            of friends equally.
           </p>
           <p>
-            When I'm not pushing commits, I'm reading about distributed systems,
-            tinkering with programming languages, or trying to figure out why my
-            Rust code won't compile.
+            When I&apos;m not pushing commits, I&apos;m reading about
+            distributed systems, tinkering with programming languages, or trying
+            to figure out why my Rust code won&apos;t compile.
           </p>
         </div>
 
         {/* Quick-info rows */}
         <div className="space-y-0 divide-y divide-border">
           {[
-            { label: "Based in", value: "India 🇮🇳" },
-            { label: "Currently", value: "Open to work" },
+            { label: "Status", value: "2nd Year B.Tech CS" },
+            { label: "College", value: "AIT, Ahmedabad" },
+            { label: "Based in", value: "Ahmedabad, India" },
+            { label: "Currently", value: "Open to internships" },
             { label: "Focus", value: "Full Stack & Systems" },
-            { label: "Education", value: "B.Tech Computer Science" },
           ].map(({ label, value }) => (
             <div key={label} className="flex items-center justify-between py-3">
               <span className="font-mono text-xs text-muted-foreground/70">
